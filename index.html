@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medicare.pt | Demo Sales Script</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --brand: #0f766e;
+      --brand-2: #14b8a6;
+      --accent: #f59e0b;
+      --good: #166534;
+      --soft: #ecfeff;
+      --soft-2: #fffbeb;
+      --danger: #b91c1c;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 20%),
+        radial-gradient(circle at top left, rgba(245, 158, 11, 0.08), transparent 18%),
+        var(--bg);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f766e, #0f172a);
+      color: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.35fr 0.9fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin: 0;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 13px;
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 22px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-box h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .hero-box .small {
+      color: rgba(255,255,255,0.8);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      margin-top: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .sidebar {
+      padding: 18px;
+      position: sticky;
+      top: 18px;
+    }
+
+    .sidebar h3,
+    .content h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 14px;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 84px;
+      resize: vertical;
+    }
+
+    .checks {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+
+    .check input {
+      margin-top: 2px;
+      transform: scale(1.08);
+    }
+
+    .check span {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: white;
+      box-shadow: 0 8px 20px rgba(20, 184, 166, 0.22);
+      flex: 1;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .content {
+      padding: 18px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab {
+      background: #fff;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .tab.active {
+      background: var(--soft);
+      color: var(--brand);
+      border-color: rgba(20, 184, 166, 0.28);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+      animation: fade .22s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fff, #fbfdff);
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h4 {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--soft);
+      color: var(--brand);
+    }
+
+    .price {
+      font-size: 26px;
+      font-weight: 800;
+      margin: 10px 0 4px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .list div {
+      border-left: 3px solid var(--brand-2);
+      padding-left: 10px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--soft-2);
+      border: 1px solid #fde68a;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .script-box,
+    .rec-box,
+    .objection-box,
+    .close-box {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      background: #fff;
+    }
+
+    .script-box h4,
+    .rec-box h4,
+    .objection-box h4,
+    .close-box h4 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .script {
+      background: #f8fafc;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .highlight {
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+    }
+
+    .score {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: var(--good);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .mini {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .kpi div {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fcfcfd;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .kpi span {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .objection-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    details p {
+      margin: 10px 0 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .badge-live {
+      display: inline-block;
+      margin-left: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 11px;
+      font-weight: 800;
+      vertical-align: middle;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .grid,
+      .rec-grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div>
+        <h1>Medicare.pt Demo Sales Script</h1>
+        <p>
+          Página única para demonstração de venda consultiva. O agente recolhe contexto,
+          recebe uma recomendação orientativa e utiliza guiões prontos para abertura,
+          exploração, proposta, tratamento de objeções e fecho.
+        </p>
+        <div class="hero-meta">
+          <span class="chip">Single HTML</span>
+          <span class="chip">CSS embebido</span>
+          <span class="chip">JavaScript embebido</span>
+          <span class="chip">Demo interativa</span>
+        </div>
+      </div>
+      <div class="hero-box">
+        <div>
+          <h2>Estrutura da demo</h2>
+          <div class="small">
+            Baseada em planos públicos Medicare e reorganizada como ferramenta de apoio ao agente.
+            Não é material oficial de venda; é um mockup para apresentação interna.
+          </div>
+        </div>
+        <div class="small">
+          Planos trabalhados: Platinium, Platinium Mais e Platinium Mais Vida.
+          A recomendação automática favorece Mais Vida quando o cliente valoriza vídeo-consultas,
+          domicílio, proteção adicional ou uso familiar.
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <aside class="panel sidebar">
+        <h3>Contexto do cliente</h3>
+
+        <div class="field">
+          <label for="customerName">Nome</label>
+          <input id="customerName" type="text" placeholder="Ex.: Ana Martins" />
+        </div>
+
+        <div class="field">
+          <label for="household">N.º de pessoas a proteger</label>
+          <select id="household">
+            <option value="1">1 pessoa</option>
+            <option value="2" selected>2 pessoas</option>
+            <option value="3">3 pessoas</option>
+            <option value="4">4 pessoas</option>
+            <option value="5">5 pessoas</option>
+            <option value="6">6 pessoas</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="priority">Principal motivação</label>
+          <select id="priority">
+            <option value="price">Preço / poupança</option>
+            <option value="family" selected>Proteção familiar</option>
+            <option value="access">Acesso rápido a cuidados</option>
+            <option value="digital">Vídeo-consultas / comodidade</option>
+            <option value="senior">Uso frequente / perfil sénior</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Necessidades identificadas</label>
+          <div class="checks">
+            <label class="check"><input type="checkbox" value="video" /><span>Valoriza vídeo-consultas sem deslocação.</span></label>
+            <label class="check"><input type="checkbox" value="home" /><span>Quer médico ao domicílio / apoio 24h.</span></label>
+            <label class="check"><input type="checkbox" value="dental" /><span>Tem interesse em medicina dentária.</span></label>
+            <label class="check"><input type="checkbox" value="psych" /><span>Interesse em saúde mental / psicologia.</span></label>
+            <label class="check"><input type="checkbox" value="children" /><span>Existem crianças ou gestão familiar do plano.</span></label>
+            <label class="check"><input type="checkbox" value="security" /><span>Valoriza proteção adicional / acidentes pessoais.</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notas rápidas</label>
+          <textarea id="notes" placeholder="Ex.: já tem seguro, compara opções, quer algo simples para começar..."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="btn-primary" id="recommendBtn">Gerar recomendação</button>
+          <button class="btn-secondary" id="resetBtn">Limpar</button>
+        </div>
+
+        <div class="footer-note">
+          Demo orientativa. O plano recomendado é calculado por regras simples para apoiar o discurso comercial.
+        </div>
+      </aside>
+
+      <main class="panel content">
+        <div class="tabs">
+          <button class="tab active" data-tab="plans">Planos</button>
+          <button class="tab" data-tab="script">Guião</button>
+          <button class="tab" data-tab="recommendation">Recomendação</button>
+          <button class="tab" data-tab="objections">Objeções</button>
+          <button class="tab" data-tab="closing">Fecho</button>
+        </div>
+
+        <section id="plans" class="tab-panel active">
+          <h3>Planos para a demo</h3>
+          <div class="cards">
+            <article class="card">
+              <div>
+                <div class="tag">Base demo</div>
+                <h4>Platinium</h4>
+                <div class="sub">Na página pública de planos, aparece como temporariamente indisponível para novas adesões.</div>
+                <div class="list">
+                  <div>Entrada simples para discurso de poupança e acesso à rede.</div>
+                  <div>Enfatizar preço fixo, sem limite de idade e sem exames médicos.</div>
+                  <div>Bom para conversa inicial quando o cliente pede algo essencial.</div>
+                </div>
+              </div>
+              <div class="note">Usar nesta demo como referência de entrada, não como foco principal de conversão.</div>
+            </article>
+
+            <article class="card">
+              <div>
+                <div class="tag">Intermédio demo</div>
+                <h4>Platinium Mais</h4>
+                <div class="sub">Também surge como temporariamente indisponível para novas adesões na página pública de planos.</div>
+                <div class="list">
+                  <div>Ponto intermédio quando o cliente quer mais valor sem ir logo ao topo.</div>
+                  <div>Útil para comparação de escalão e framing da proposta.</div>
+                  <div>Funciona bem como degrau narrativo antes de Mais Vida.</div>
+                </div>
+              </div>
+              <div class="note">Na demo, serve como âncora comparativa para mostrar progressão de valor.</div>
+            </article>
+
+            <article class="card">
+              <div>
+                <div class="tag">Plano em destaque</div>
+                <h4>Platinium Mais Vida</h4>
+                <div class="price">desde 49,90€</div>
+                <div class="sub">Preço público visível para 2 pessoas na página de planos; o site oficial destaca este plano e a adesão online.</div>
+                <div class="list">
+                  <div>Vídeo-consultas sem custo.</div>
+                  <div>Médico ao domicílio 24h/7d grátis.</div>
+                  <div>Cobertura de acidentes pessoais / proteção adicional.</div>
+                  <div>Forte proposta para famílias e clientes que valorizam comodidade.</div>
+                </div>
+              </div>
+              <div class="note">Plano preferencial na demo quando o cliente pede proteção, conveniência ou uso familiar.</div>
+            </article>
+          </div>
+
+          <div class="note" style="margin-top:16px;">
+            Elementos públicos usados na demo: até 6 beneficiários, sem limite de idade, sem exames médicos, sem período de carência, serviços convencionados e, no caso de Platinium Mais Vida, vídeo-consultas sem custo, médico ao domicílio 24h/7d e cobertura de acidentes pessoais. Estes pontos constam das páginas públicas Medicare. :contentReference[oaicite:1]{index=1}
+          </div>
+        </section>
+
+        <section id="script" class="tab-panel">
+          <h3>Guião de venda</h3>
+
+          <div class="script-box">
+            <h4>Abertura</h4>
+            <div class="script" id="openingScript">
+Bom dia. Obrigado pelo seu tempo.
+Antes de lhe sugerir uma opção, gostava de perceber o que é mais importante para si: poupança no dia a dia, proteção para a família, acesso rápido a cuidados de saúde ou mais comodidade, por exemplo com vídeo-consultas.
+A ideia é recomendar-lhe um plano ajustado ao uso que prevê fazer, sem complicar.
+            </div>
+          </div>
+
+          <div class="script-box">
+            <h4>Diagnóstico</h4>
+            <div class="script" id="discoveryScript">
+Para o aconselhar melhor, deixe-me confirmar três pontos:
+1) Quantas pessoas pretende incluir?
+2) O mais importante é preço, rede de prestadores ou serviços adicionais?
+3) Valoriza funcionalidades como vídeo-consultas, médico ao domicílio ou apoio para a família?
+            </div>
+          </div>
+
+          <div class="script-box">
+            <h4>Proposta</h4>
+            <div class="script" id="proposalScript">
+Pelo que me está a dizer, o mais importante não é apenas ter acesso à rede, mas escolher um plano que faça sentido no uso real.
+Se procura uma solução mais completa, com maior conveniência e proteção adicional, faz sentido eu mostrar-lhe o Platinium Mais Vida.
+Se preferir, também lhe explico a diferença para os escalões de entrada para perceber onde existe mais valor para o seu caso.
+            </div>
+          </div>
+        </section>
+
+        <section id="recommendation" class="tab-panel">
+          <h3>Recomendação orientativa <span class="badge-live">interativa</span></h3>
+
+          <div class="rec-grid">
+            <div class="rec-box">
+              <h4>Plano recomendado</h4>
+              <div id="recPlan" class="script">
+Preencha os dados à esquerda e clique em “Gerar recomendação”.
+              </div>
+            </div>
+
+            <div class="rec-box">
+              <h4>Resumo comercial</h4>
+              <div id="recSummary" class="mini">
+                Ainda sem cálculo.
+              </div>
+
+              <div class="kpi">
+                <div>
+                  <strong>Segmento sugerido</strong>
+                  <span id="kpiSegment">—</span>
+                </div>
+                <div>
+                  <strong>Intensidade de proposta</strong>
+                  <span id="kpiIntensity">—</span>
+                </div>
+                <div>
+                  <strong>Plano principal</strong>
+                  <span id="kpiPlan">—</span>
+                </div>
+                <div>
+                  <strong>Mensagem-chave</strong>
+                  <span id="kpiMessage">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="rec-box">
+            <h4>Script gerado para o agente</h4>
+            <div id="dynamicScript" class="script">
+Sem guião gerado.
+            </div>
+          </div>
+        </section>
+
+        <section id="objections" class="tab-panel">
+          <h3>Tratamento de objeções</h3>
+          <div class="objection-list">
+            <details open>
+              <summary>“Só quero algo barato.”</summary>
+              <p>
+                Percebo. Nesse caso, a melhor abordagem é não começar pelo mais completo, mas confirmar primeiro o nível de utilização esperado. Se a intenção é apenas ter acesso à rede e controlar o custo, posso mostrar-lhe a opção mais simples. Se, pelo contrário, prevê usar vídeo-consultas, apoio domiciliário ou incluir família, então compensa olhar para o escalão acima para evitar escolher algo curto para a sua necessidade.
+              </p>
+            </details>
+
+            <details>
+              <summary>“Já tenho outra solução.”</summary>
+              <p>
+                Faz sentido comparar. O ponto aqui não é trocar por trocar, mas perceber se a solução atual lhe entrega conveniência, amplitude de utilização e serviços adicionais relevantes. Posso focar a comparação no que usa realmente: rede, rapidez de acesso, apoio familiar, vídeo-consultas e proteção complementar.
+              </p>
+            </details>
+
+            <details>
+              <summary>“Não sei se vou usar.”</summary>
+              <p>
+                É precisamente por isso que vale a pena alinhar o plano ao padrão de utilização. Há clientes que querem apenas acesso à rede; outros valorizam ter uma solução pronta para quando precisam, sobretudo com família, crianças ou necessidade de comodidade. O importante é não pagar por um nível que não faz sentido, mas também não ficar curto quando surge a necessidade.
+              </p>
+            </details>
+
+            <details>
+              <summary>“Tenho de pensar.”</summary>
+              <p>
+                Claro. Antes de decidir, faz sentido eu resumir em 30 segundos a recomendação e a razão pela qual ela encaixa no seu caso. Assim fica com uma ideia clara do que está a comparar e decide com mais critério.
+              </p>
+            </details>
+          </div>
+        </section>
+
+        <section id="closing" class="tab-panel">
+          <h3>Fecho</h3>
+
+          <div class="close-box">
+            <h4>Fecho suave</h4>
+            <div class="script">
+Pelo que me partilhou, o mais sensato é ficar com uma opção alinhada ao seu uso real.
+Se estiver de acordo, o próximo passo é avançarmos com a opção que faz mais sentido para si e eu acompanho consigo o processo.
+            </div>
+          </div>
+
+          <div class="close-box">
+            <h4>Fecho por conveniência</h4>
+            <div class="script">
+A vantagem de decidir já é sair desta conversa com uma solução definida e ajustada àquilo que valoriza.
+Se quiser, fechamos pela opção recomendada e eu recapitulo consigo os pontos principais antes de avançar.
+            </div>
+          </div>
+
+          <div class="close-box">
+            <h4>Fecho por comparação</h4>
+            <div class="script">
+Entre uma solução apenas de acesso e uma proposta com mais conveniência e proteção, a decisão depende do uso que antecipa.
+Pelo seu perfil, a recomendação fica mais segura quando escolhemos a opção que evita limitações logo à partida.
+            </div>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        panels.forEach(p => p.classList.remove("active"));
+        tab.classList.add("active");
+        document.getElementById(tab.dataset.tab).classList.add("active");
+      });
+    });
+
+    const recommendBtn = document.getElementById("recommendBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    const customerName = document.getElementById("customerName");
+    const household = document.getElementById("household");
+    const priority = document.getElementById("priority");
+    const notes = document.getElementById("notes");
+    const needChecks = Array.from(document.querySelectorAll('.checks input[type="checkbox"]'));
+
+    const recPlan = document.getElementById("recPlan");
+    const recSummary = document.getElementById("recSummary");
+    const dynamicScript = document.getElementById("dynamicScript");
+
+    const kpiSegment = document.getElementById("kpiSegment");
+    const kpiIntensity = document.getElementById("kpiIntensity");
+    const kpiPlan = document.getElementById("kpiPlan");
+    const kpiMessage = document.getElementById("kpiMessage");
+
+    function getSelectedNeeds() {
+      return needChecks.filter(c => c.checked).map(c => c.value);
+    }
+
+    function classifySegment(priorityValue, people, selectedNeeds) {
+      if (priorityValue === "senior") return "uso frequente";
+      if (priorityValue === "digital") return "digital";
+      if (priorityValue === "family" || selectedNeeds.includes("children") || people >= 3) return "familiar";
+      if (priorityValue === "access") return "acesso rápido";
+      return "preço";
+    }
+
+    function getRecommendation() {
+      const name = customerName.value.trim() || "Cliente";
+      const people = Number(household.value);
+      const priorityValue = priority.value;
+      const selectedNeeds = getSelectedNeeds();
+      const segment = classifySegment(priorityValue, people, selectedNeeds);
+
+      let scorePMV = 0;
+      let scorePM = 0;
+      let scoreP = 0;
+
+      if (priorityValue === "digital") scorePMV += 4;
+      if (priorityValue === "family") scorePMV += 3;
+      if (priorityValue === "access") scorePM += 2, scorePMV += 2;
+      if (priorityValue === "price") scoreP += 3, scorePM += 1;
+      if (priorityValue === "senior") scorePMV += 3, scorePM += 1;
+
+      if (selectedNeeds.includes("video")) scorePMV += 4;
+      if (selectedNeeds.includes("home")) scorePMV += 4;
+      if (selectedNeeds.includes("psych")) scorePMV += 3;
+      if (selectedNeeds.includes("security")) scorePMV += 3;
+      if (selectedNeeds.includes("children")) scorePMV += 2, scorePM += 1;
+      if (selectedNeeds.includes("dental")) scorePMV += 2, scorePM += 2, scoreP += 1;
+
+      if (people >= 3) scorePMV += 3;
+      if (people === 2) scorePMV += 1, scorePM += 1;
+      if (people === 1 && priorityValue === "price") scoreP += 2;
+
+      let plan = "Platinium Mais Vida";
+      let intensity = "Alta";
+      let keyMessage = "conveniência + proteção";
+      let rationale = [];
+
+      if (scoreP >= scorePM && scoreP >= scorePMV) {
+        plan = "Platinium";
+        intensity = "Baixa";
+        keyMessage = "entrada / poupança";
+        rationale = [
+          "perfil sensível a preço",
+          "necessidade mais simples",
+          "boa narrativa para acesso básico à rede"
+        ];
+      } else if (scorePM >= scorePMV) {
+        plan = "Platinium Mais";
+        intensity = "Média";
+        keyMessage = "equilíbrio";
+        rationale = [
+          "cliente procura mais do que entrada",
+          "sem exigir a proposta mais completa",
+          "bom patamar intermédio para comparação"
+        ];
+      } else {
+        plan = "Platinium Mais Vida";
+        intensity = "Alta";
+        keyMessage = "conveniência + proteção";
+        rationale = [
+          "melhor encaixe para uso familiar ou digital",
+          "mais força comercial quando há valorização de serviços",
+          "proposta mais completa dentro da demo"
+        ];
+      }
+
+      const selectedText = selectedNeeds.length
+        ? selectedNeeds.join(", ")
+        : "nenhuma necessidade adicional marcada";
+
+      return {
+        name,
+        people,
+        plan,
+        segment,
+        intensity,
+        keyMessage,
+        selectedText,
+        rationale,
+        notes: notes.value.trim()
+      };
+    }
+
+    function renderRecommendation() {
+      const r = getRecommendation();
+
+      recPlan.innerHTML = `
+<span class="highlight">${r.plan}</span>
+
+Cliente: ${r.name}
+Pessoas a incluir: ${r.people}
+Segmento identificado: ${r.segment}
+
+Motivos principais:
+- ${r.rationale[0]}
+- ${r.rationale[1]}
+- ${r.rationale[2]}
+
+Necessidades marcadas:
+- ${r.selectedText}
+
+Nota do agente:
+- ${r.notes || "sem notas adicionais"}
+      `.trim();
+
+      recSummary.innerHTML = `
+A recomendação sugere <strong>${r.plan}</strong> para um perfil <strong>${r.segment}</strong>.
+O discurso deve acentuar <strong>${r.keyMessage}</strong> e evitar uma apresentação demasiado genérica. 
+A conversa deve ligar o plano ao uso previsto e não apenas ao nome do produto.
+      `.trim();
+
+      dynamicScript.innerHTML = `
+${r.name}, pelo que me indicou, faz sentido eu posicionar-lhe o <span class="highlight">${r.plan}</span>.
+
+Não lhe estou a sugerir uma opção ao acaso. Estou a sugeri-la porque o seu contexto aponta para um perfil <span class="highlight">${r.segment}</span>, com ${r.people} pessoa(s) e com foco em ${r.keyMessage}.
+
+A minha proposta seria muito simples:
+primeiro confirmamos que o objetivo é escolher um plano ajustado ao uso real;
+depois validamos se quer apenas acesso básico ou também conveniência, proteção e facilidade de utilização;
+e, com base nisso, o ${r.plan} é o plano que melhor enquadra esta necessidade dentro desta demo.
+
+Se quiser, eu comparo consigo esta opção com um escalão abaixo para perceber claramente o que ganha e o que prescinde antes de decidir.
+      `.trim();
+
+      kpiSegment.textContent = r.segment;
+      kpiIntensity.textContent = r.intensity;
+      kpiPlan.textContent = r.plan;
+      kpiMessage.textContent = r.keyMessage;
+
+      document.querySelector('[data-tab="recommendation"]').click();
+    }
+
+    function resetAll() {
+      customerName.value = "";
+      household.value = "2";
+      priority.value = "family";
+      notes.value = "";
+      needChecks.forEach(c => c.checked = false);
+
+      recPlan.textContent = "Preencha os dados à esquerda e clique em “Gerar recomendação”.";
+      recSummary.textContent = "Ainda sem cálculo.";
+      dynamicScript.textContent = "Sem guião gerado.";
+      kpiSegment.textContent = "—";
+      kpiIntensity.textContent = "—";
+      kpiPlan.textContent = "—";
+      kpiMessage.textContent = "—";
+    }
+
+    recommendBtn.addEventListener("click", renderRecommendation);
+    resetBtn.addEventListener("click", resetAll);
+  </script>
+</body>
+</html>
