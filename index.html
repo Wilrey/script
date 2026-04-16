@@ -11,13 +11,10 @@
       --text: #1f2937;
       --muted: #6b7280;
       --line: #e5e7eb;
-      --brand: #0f766e;
-      --brand-2: #14b8a6;
-      --accent: #f59e0b;
-      --good: #166534;
-      --soft: #ecfeff;
-      --soft-2: #fffbeb;
-      --danger: #b91c1c;
+      --brand: #b91c1c;
+      --brand-soft: #fef2f2;
+      --accent: #0f766e;
+      --soft: #f8fafc;
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
@@ -28,12 +25,9 @@
 
     body {
       margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text);
-      background:
-        radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 20%),
-        radial-gradient(circle at top left, rgba(245, 158, 11, 0.08), transparent 18%),
-        var(--bg);
+      background: var(--bg);
     }
 
     .page {
@@ -42,74 +36,42 @@
       padding: 24px;
     }
 
-    .hero {
-      background: linear-gradient(135deg, #0f766e, #0f172a);
-      color: white;
-      border-radius: 28px;
-      padding: 28px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.35fr 0.9fr;
-      gap: 20px;
-      align-items: stretch;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
+    .title-wrap h1 {
+      margin: 0;
+      font-size: 28px;
       line-height: 1.1;
     }
 
-    .hero p {
-      margin: 0;
-      color: rgba(255,255,255,0.88);
-      line-height: 1.55;
-      font-size: 15px;
+    .title-wrap p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .chip {
-      padding: 8px 12px;
+    .logo-pill {
+      background: white;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.14);
+      padding: 10px 14px;
       font-size: 13px;
-      color: #fff;
-      backdrop-filter: blur(6px);
-    }
-
-    .hero-box {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 22px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .hero-box h2 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .hero-box .small {
-      color: rgba(255,255,255,0.8);
-      font-size: 13px;
-      line-height: 1.5;
+      font-weight: 700;
+      color: var(--brand);
+      box-shadow: var(--shadow);
     }
 
     .grid {
       display: grid;
       grid-template-columns: 320px 1fr;
       gap: 20px;
-      margin-top: 20px;
       align-items: start;
     }
 
@@ -126,8 +88,11 @@
       top: 18px;
     }
 
-    .sidebar h3,
-    .content h3 {
+    .content {
+      padding: 18px;
+    }
+
+    h3 {
       margin: 0 0 14px;
       font-size: 18px;
     }
@@ -141,7 +106,7 @@
       margin-bottom: 6px;
       font-size: 13px;
       color: var(--muted);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .field input,
@@ -179,12 +144,10 @@
 
     .check input {
       margin-top: 2px;
-      transform: scale(1.08);
     }
 
     .check span {
       font-size: 13px;
-      color: var(--text);
       line-height: 1.4;
     }
 
@@ -201,28 +164,18 @@
       cursor: pointer;
       font-weight: 700;
       font-size: 14px;
-      transition: transform .15s ease, opacity .15s ease, box-shadow .15s ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      background: var(--brand);
       color: white;
-      box-shadow: 0 8px 20px rgba(20, 184, 166, 0.22);
       flex: 1;
     }
 
     .btn-secondary {
-      background: #fff;
+      background: white;
       color: var(--text);
       border: 1px solid var(--line);
-    }
-
-    .content {
-      padding: 18px;
     }
 
     .tabs {
@@ -233,7 +186,7 @@
     }
 
     .tab {
-      background: #fff;
+      background: white;
       color: var(--muted);
       border: 1px solid var(--line);
       border-radius: 999px;
@@ -243,9 +196,9 @@
     }
 
     .tab.active {
-      background: var(--soft);
+      background: var(--brand-soft);
       color: var(--brand);
-      border-color: rgba(20, 184, 166, 0.28);
+      border-color: #fecaca;
     }
 
     .tab-panel {
@@ -254,12 +207,6 @@
 
     .tab-panel.active {
       display: block;
-      animation: fade .22s ease;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .cards {
@@ -271,88 +218,83 @@
     .card {
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 16px;
-      background: linear-gradient(180deg, #fff, #fbfdff);
-      min-height: 220px;
+      background: white;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      min-height: 430px;
     }
 
-    .card h4 {
-      margin: 0 0 6px;
-      font-size: 18px;
+    .card-image {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      background: #f3f4f6;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
     }
 
     .tag {
       display: inline-flex;
       width: fit-content;
-      margin-bottom: 10px;
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      background: var(--soft);
+      background: var(--brand-soft);
       color: var(--brand);
     }
 
-    .price {
-      font-size: 26px;
-      font-weight: 800;
-      margin: 10px 0 4px;
+    .card h4 {
+      margin: 0;
+      font-size: 18px;
     }
 
     .sub {
       color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     .list {
       display: grid;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 4px;
     }
 
     .list div {
-      border-left: 3px solid var(--brand-2);
+      border-left: 3px solid var(--brand);
       padding-left: 10px;
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.45;
-    }
-
-    .note {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: var(--soft-2);
-      border: 1px solid #fde68a;
       font-size: 13px;
       line-height: 1.45;
     }
 
     .script-box,
     .rec-box,
-    .objection-box,
     .close-box {
       border: 1px solid var(--line);
       border-radius: 18px;
       padding: 16px;
       margin-bottom: 14px;
-      background: #fff;
+      background: white;
     }
 
     .script-box h4,
     .rec-box h4,
-    .objection-box h4,
     .close-box h4 {
       margin: 0 0 10px;
       font-size: 16px;
     }
 
     .script {
-      background: #f8fafc;
+      background: var(--soft);
       border: 1px dashed #cbd5e1;
       border-radius: 14px;
       padding: 14px;
@@ -361,29 +303,10 @@
       font-size: 14px;
     }
 
-    .highlight {
-      color: var(--brand);
-      font-weight: 800;
-    }
-
     .rec-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 14px;
-    }
-
-    .score {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      color: var(--good);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-top: 4px;
     }
 
     .mini {
@@ -396,7 +319,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .kpi div {
@@ -418,16 +341,12 @@
       font-weight: 800;
     }
 
-    .objection-list {
-      display: grid;
-      gap: 10px;
-    }
-
     details {
       border: 1px solid var(--line);
       border-radius: 14px;
       padding: 12px 14px;
-      background: #fff;
+      background: white;
+      margin-bottom: 10px;
     }
 
     summary {
@@ -440,7 +359,6 @@
       margin: 10px 0 0;
       font-size: 14px;
       line-height: 1.6;
-      color: var(--text);
     }
 
     .footer-note {
@@ -450,23 +368,33 @@
       line-height: 1.55;
     }
 
-    .badge-live {
-      display: inline-block;
-      margin-left: 8px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: #ecfdf5;
-      color: #047857;
-      font-size: 11px;
+    .hero-image-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero-image-strip img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .highlight {
+      color: var(--brand);
       font-weight: 800;
-      vertical-align: middle;
     }
 
     @media (max-width: 980px) {
-      .hero,
       .grid,
+      .cards,
       .rec-grid,
-      .cards {
+      .hero-image-strip {
         grid-template-columns: 1fr;
       }
 
@@ -478,7 +406,20 @@
 </head>
 <body>
   <div class="page">
-    
+    <div class="topbar">
+      <div class="title-wrap">
+        <h1>Medicare.pt Demo Sales Script</h1>
+        <p>Single page para demonstração de venda com guião, comparação de planos e recomendação orientativa.</p>
+      </div>
+      <div class="logo-pill">Demo comercial Medicare</div>
+    </div>
+
+    <div class="hero-image-strip">
+      <img src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg" alt="Cartão Platinium Mais Vida" />
+      <img src="https://www.medicare.pt/assets/img/como-usar-plano-medicare/medico-domicilio.png" alt="Médico ao Domicílio Medicare" />
+      <img src="https://www.medicare.pt/assets/img/video-consulta.gif" alt="Vídeo-consulta Medicare" />
+    </div>
+
     <section class="grid">
       <aside class="panel sidebar">
         <h3>Contexto do cliente</h3>
@@ -519,13 +460,13 @@
             <label class="check"><input type="checkbox" value="dental" /><span>Tem interesse em medicina dentária.</span></label>
             <label class="check"><input type="checkbox" value="psych" /><span>Interesse em saúde mental / psicologia.</span></label>
             <label class="check"><input type="checkbox" value="children" /><span>Existem crianças ou gestão familiar do plano.</span></label>
-            <label class="check"><input type="checkbox" value="security" /><span>Valoriza proteção adicional / acidentes pessoais.</span></label>
+            <label class="check"><input type="checkbox" value="security" /><span>Valoriza proteção adicional.</span></label>
           </div>
         </div>
 
         <div class="field">
           <label for="notes">Notas rápidas</label>
-          <textarea id="notes" placeholder="Ex.: já tem seguro, compara opções, quer algo simples para começar..."></textarea>
+          <textarea id="notes" placeholder="Ex.: quer algo simples, compara opções, já tem outro plano..."></textarea>
         </div>
 
         <div class="actions">
@@ -534,7 +475,7 @@
         </div>
 
         <div class="footer-note">
-          Demo orientativa. O plano recomendado é calculado por regras simples para apoiar o discurso comercial.
+          Ferramenta de demo. O guião é orientativo e a recomendação é calculada por reglas simples.
         </div>
       </aside>
 
@@ -551,52 +492,46 @@
           <h3>Planos para a demo</h3>
           <div class="cards">
             <article class="card">
-              <div>
+              <img class="card-image" src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg" alt="Medicare plano" />
+              <div class="card-body">
                 <div class="tag">Base demo</div>
                 <h4>Platinium</h4>
-                <div class="sub">Na página pública de planos, aparece como temporariamente indisponível para novas adesões.</div>
+                <div class="sub">Escalão de entrada para discurso de poupança e acesso.</div>
                 <div class="list">
-                  <div>Entrada simples para discurso de poupança e acesso à rede.</div>
-                  <div>Enfatizar preço fixo, sem limite de idade e sem exames médicos.</div>
-                  <div>Bom para conversa inicial quando o cliente pede algo essencial.</div>
+                  <div>Para cliente sensível a preço.</div>
+                  <div>Útil como ponto de comparação.</div>
+                  <div>Narrativa simples de entrada na rede.</div>
                 </div>
               </div>
-              <div class="note">Usar nesta demo como referência de entrada, não como foco principal de conversão.</div>
             </article>
 
             <article class="card">
-              <div>
+              <img class="card-image" src="https://www.medicare.pt/assets/img/video-consulta.gif" alt="Vídeo-consulta Medicare" />
+              <div class="card-body">
                 <div class="tag">Intermédio demo</div>
                 <h4>Platinium Mais</h4>
-                <div class="sub">Também surge como temporariamente indisponível para novas adesões na página pública de planos.</div>
+                <div class="sub">Escalón intermedio para elevar valor sin ir directamente al plan más completo.</div>
                 <div class="list">
-                  <div>Ponto intermédio quando o cliente quer mais valor sem ir logo ao topo.</div>
-                  <div>Útil para comparação de escalão e framing da proposta.</div>
-                  <div>Funciona bem como degrau narrativo antes de Mais Vida.</div>
+                  <div>Buen puente narrativo.</div>
+                  <div>Equilibrio entre simplicidad y valor.</div>
+                  <div>Útil para framing comercial.</div>
                 </div>
               </div>
-              <div class="note">Na demo, serve como âncora comparativa para mostrar progressão de valor.</div>
             </article>
 
             <article class="card">
-              <div>
-                <div class="tag">Plano em destaque</div>
+              <img class="card-image" src="https://www.medicare.pt/assets/img/como-usar-plano-medicare/medico-domicilio.png" alt="Médico ao domicílio Medicare" />
+              <div class="card-body">
+                <div class="tag">Plano recomendado</div>
                 <h4>Platinium Mais Vida</h4>
-                <div class="price">desde 49,90€</div>
-                <div class="sub">Preço público visível para 2 pessoas na página de planos; o site oficial destaca este plano e a adesão online.</div>
+                <div class="sub">En la página pública destaca vídeo-consultas, médico ao domicílio 24h/7d y cobertura de acidentes pessoais. :contentReference[oaicite:1]{index=1}</div>
                 <div class="list">
-                  <div>Vídeo-consultas sem custo.</div>
-                  <div>Médico ao domicílio 24h/7d grátis.</div>
-                  <div>Cobertura de acidentes pessoais / proteção adicional.</div>
-                  <div>Forte proposta para famílias e clientes que valorizam comodidade.</div>
+                  <div>Muy fuerte para discurso familiar.</div>
+                  <div>Muy fuerte para comodidad y uso digital.</div>
+                  <div>Muy fuerte cuando el cliente quiere más protección.</div>
                 </div>
               </div>
-              <div class="note">Plano preferencial na demo quando o cliente pede proteção, conveniência ou uso familiar.</div>
             </article>
-          </div>
-
-          <div class="note" style="margin-top:16px;">
-            Elementos públicos usados na demo: até 6 beneficiários, sem limite de idade, sem exames médicos, sem período de carência, serviços convencionados e, no caso de Platinium Mais Vida, vídeo-consultas sem custo, médico ao domicílio 24h/7d e cobertura de acidentes pessoais. Estes pontos constam das páginas públicas Medicare. :contentReference[oaicite:1]{index=1}
           </div>
         </section>
 
@@ -605,16 +540,17 @@
 
           <div class="script-box">
             <h4>Abertura</h4>
-            <div class="script" id="openingScript">
+            <div class="script">
 Bom dia. Obrigado pelo seu tempo.
-Antes de lhe sugerir uma opção, gostava de perceber o que é mais importante para si: poupança no dia a dia, proteção para a família, acesso rápido a cuidados de saúde ou mais comodidade, por exemplo com vídeo-consultas.
-A ideia é recomendar-lhe um plano ajustado ao uso que prevê fazer, sem complicar.
+Antes de lhe sugerir uma opção, gostava de perceber o que é mais importante para si: poupança, proteção para a família, acesso rápido a cuidados ou mais comodidade com serviços à distância.
+
+A ideia é recomendar-lhe um plano ajustado ao uso real e não apenas apresentar nomes de produtos.
             </div>
           </div>
 
           <div class="script-box">
             <h4>Diagnóstico</h4>
-            <div class="script" id="discoveryScript">
+            <div class="script">
 Para o aconselhar melhor, deixe-me confirmar três pontos:
 1) Quantas pessoas pretende incluir?
 2) O mais importante é preço, rede de prestadores ou serviços adicionais?
@@ -624,30 +560,25 @@ Para o aconselhar melhor, deixe-me confirmar três pontos:
 
           <div class="script-box">
             <h4>Proposta</h4>
-            <div class="script" id="proposalScript">
-Pelo que me está a dizer, o mais importante não é apenas ter acesso à rede, mas escolher um plano que faça sentido no uso real.
-Se procura uma solução mais completa, com maior conveniência e proteção adicional, faz sentido eu mostrar-lhe o Platinium Mais Vida.
-Se preferir, também lhe explico a diferença para os escalões de entrada para perceber onde existe mais valor para o seu caso.
+            <div class="script">
+Pelo que me está a dizer, faz sentido eu não lhe mostrar apenas a solução mais simples, mas a que melhor encaixa no uso previsto.
+Se procura uma solução mais completa, com maior conveniência e proteção adicional, o Platinium Mais Vida tende a ser a proposta mais forte dentro desta demo.
             </div>
           </div>
         </section>
 
         <section id="recommendation" class="tab-panel">
-          <h3>Recomendação orientativa <span class="badge-live">interativa</span></h3>
+          <h3>Recomendação orientativa</h3>
 
           <div class="rec-grid">
             <div class="rec-box">
               <h4>Plano recomendado</h4>
-              <div id="recPlan" class="script">
-Preencha os dados à esquerda e clique em “Gerar recomendação”.
-              </div>
+              <div id="recPlan" class="script">Preencha os dados à esquerda e clique em “Gerar recomendação”.</div>
             </div>
 
             <div class="rec-box">
               <h4>Resumo comercial</h4>
-              <div id="recSummary" class="mini">
-                Ainda sem cálculo.
-              </div>
+              <div id="recSummary" class="mini">Ainda sem cálculo.</div>
 
               <div class="kpi">
                 <div>
@@ -672,43 +603,33 @@ Preencha os dados à esquerda e clique em “Gerar recomendação”.
 
           <div class="rec-box">
             <h4>Script gerado para o agente</h4>
-            <div id="dynamicScript" class="script">
-Sem guião gerado.
-            </div>
+            <div id="dynamicScript" class="script">Sem guião gerado.</div>
           </div>
         </section>
 
         <section id="objections" class="tab-panel">
           <h3>Tratamento de objeções</h3>
-          <div class="objection-list">
-            <details open>
-              <summary>“Só quero algo barato.”</summary>
-              <p>
-                Percebo. Nesse caso, a melhor abordagem é não começar pelo mais completo, mas confirmar primeiro o nível de utilização esperado. Se a intenção é apenas ter acesso à rede e controlar o custo, posso mostrar-lhe a opção mais simples. Se, pelo contrário, prevê usar vídeo-consultas, apoio domiciliário ou incluir família, então compensa olhar para o escalão acima para evitar escolher algo curto para a sua necessidade.
-              </p>
-            </details>
 
-            <details>
-              <summary>“Já tenho outra solução.”</summary>
-              <p>
-                Faz sentido comparar. O ponto aqui não é trocar por trocar, mas perceber se a solução atual lhe entrega conveniência, amplitude de utilização e serviços adicionais relevantes. Posso focar a comparação no que usa realmente: rede, rapidez de acesso, apoio familiar, vídeo-consultas e proteção complementar.
-              </p>
-            </details>
+          <details open>
+            <summary>“Só quero algo barato.”</summary>
+            <p>
+              Percebo. Nesse caso, a melhor abordagem é não começar pelo mais completo, mas validar primeiro o nível de utilização esperado. Se a intenção é apenas acesso básico, faz sentido olhar para uma opção simples. Se valoriza conveniência, família ou serviços adicionais, compensa avaliar o nível acima.
+            </p>
+          </details>
 
-            <details>
-              <summary>“Não sei se vou usar.”</summary>
-              <p>
-                É precisamente por isso que vale a pena alinhar o plano ao padrão de utilização. Há clientes que querem apenas acesso à rede; outros valorizam ter uma solução pronta para quando precisam, sobretudo com família, crianças ou necessidade de comodidade. O importante é não pagar por um nível que não faz sentido, mas também não ficar curto quando surge a necessidade.
-              </p>
-            </details>
+          <details>
+            <summary>“Já tenho outra solução.”</summary>
+            <p>
+              Faz sentido comparar. O importante não é trocar por trocar, mas perceber se a solução atual lhe entrega o mesmo nível de comodidade, amplitude de utilização e proteção adicional que procura.
+            </p>
+          </details>
 
-            <details>
-              <summary>“Tenho de pensar.”</summary>
-              <p>
-                Claro. Antes de decidir, faz sentido eu resumir em 30 segundos a recomendação e a razão pela qual ela encaixa no seu caso. Assim fica com uma ideia clara do que está a comparar e decide com mais critério.
-              </p>
-            </details>
-          </div>
+          <details>
+            <summary>“Não sei se vou usar.”</summary>
+            <p>
+              Precisamente por isso vale a pena alinhar o plano ao padrão de utilização. O objetivo é não pagar por algo excessivo, mas também não ficar curto quando a necessidade aparece.
+            </p>
+          </details>
         </section>
 
         <section id="closing" class="tab-panel">
@@ -718,23 +639,15 @@ Sem guião gerado.
             <h4>Fecho suave</h4>
             <div class="script">
 Pelo que me partilhou, o mais sensato é ficar com uma opção alinhada ao seu uso real.
-Se estiver de acordo, o próximo passo é avançarmos com a opção que faz mais sentido para si e eu acompanho consigo o processo.
+Se estiver de acordo, o próximo passo é avançarmos com a alternativa recomendada e eu acompanho consigo o processo.
             </div>
           </div>
 
           <div class="close-box">
             <h4>Fecho por conveniência</h4>
             <div class="script">
-A vantagem de decidir já é sair desta conversa com uma solução definida e ajustada àquilo que valoriza.
-Se quiser, fechamos pela opção recomendada e eu recapitulo consigo os pontos principais antes de avançar.
-            </div>
-          </div>
-
-          <div class="close-box">
-            <h4>Fecho por comparação</h4>
-            <div class="script">
-Entre uma solução apenas de acesso e uma proposta com mais conveniência e proteção, a decisão depende do uso que antecipa.
-Pelo seu perfil, a recomendação fica mais segura quando escolhemos a opção que evita limitações logo à partida.
+A vantagem de decidir já é sair desta conversa com uma solução definida e ajustada ao que valoriza.
+Se quiser, recapitulo consigo os pontos principais e avançamos.
             </div>
           </div>
         </section>
@@ -825,7 +738,7 @@ Pelo seu perfil, a recomendação fica mais segura quando escolhemos a opção q
         rationale = [
           "perfil sensível a preço",
           "necessidade mais simples",
-          "boa narrativa para acesso básico à rede"
+          "boa narrativa para acesso básico"
         ];
       } else if (scorePM >= scorePMV) {
         plan = "Platinium Mais";
@@ -847,9 +760,7 @@ Pelo seu perfil, a recomendação fica mais segura quando escolhemos a opção q
         ];
       }
 
-      const selectedText = selectedNeeds.length
-        ? selectedNeeds.join(", ")
-        : "nenhuma necessidade adicional marcada";
+      const selectedText = selectedNeeds.length ? selectedNeeds.join(", ") : "nenhuma necessidade adicional marcada";
 
       return {
         name,
@@ -888,8 +799,7 @@ Nota do agente:
 
       recSummary.innerHTML = `
 A recomendação sugere <strong>${r.plan}</strong> para um perfil <strong>${r.segment}</strong>.
-O discurso deve acentuar <strong>${r.keyMessage}</strong> e evitar uma apresentação demasiado genérica. 
-A conversa deve ligar o plano ao uso previsto e não apenas ao nome do produto.
+O discurso deve acentuar <strong>${r.keyMessage}</strong> e ligar o plano ao uso previsto.
       `.trim();
 
       dynamicScript.innerHTML = `
@@ -897,12 +807,10 @@ ${r.name}, pelo que me indicou, faz sentido eu posicionar-lhe o <span class="hig
 
 Não lhe estou a sugerir uma opção ao acaso. Estou a sugeri-la porque o seu contexto aponta para um perfil <span class="highlight">${r.segment}</span>, com ${r.people} pessoa(s) e com foco em ${r.keyMessage}.
 
-A minha proposta seria muito simples:
+A minha proposta seria simples:
 primeiro confirmamos que o objetivo é escolher um plano ajustado ao uso real;
 depois validamos se quer apenas acesso básico ou também conveniência, proteção e facilidade de utilização;
-e, com base nisso, o ${r.plan} é o plano que melhor enquadra esta necessidade dentro desta demo.
-
-Se quiser, eu comparo consigo esta opção com um escalão abaixo para perceber claramente o que ganha e o que prescinde antes de decidir.
+e, com base nisso, o ${r.plan} é a proposta que melhor enquadra esta necessidade dentro desta demo.
       `.trim();
 
       kpiSegment.textContent = r.segment;
