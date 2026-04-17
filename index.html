@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Medicare.pt | Demo Sales Script</title>
+  <title>Medicare.pt | Guia de Chamada Demo</title>
   <style>
     :root {
       --bg: #f5f7fb;
@@ -11,11 +11,13 @@
       --text: #1f2937;
       --muted: #6b7280;
       --line: #e5e7eb;
-      --brand: #b91c1c;
-      --brand-soft: #fef2f2;
-      --accent: #0f766e;
-      --soft: #f8fafc;
-      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --red: #b91c1c;
+      --red-soft: #fef2f2;
+      --red-border: #fecaca;
+      --ok: #166534;
+      --ok-soft: #f0fdf4;
+      --blue-soft: #eff6ff;
+      --shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
       --radius: 18px;
     }
 
@@ -31,46 +33,14 @@
     }
 
     .page {
-      max-width: 1180px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 24px;
     }
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .title-wrap h1 {
-      margin: 0;
-      font-size: 28px;
-      line-height: 1.1;
-    }
-
-    .title-wrap p {
-      margin: 6px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .logo-pill {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--brand);
-      box-shadow: var(--shadow);
-    }
-
-    .grid {
+    .layout {
       display: grid;
-      grid-template-columns: 320px 1fr;
+      grid-template-columns: minmax(0, 1fr) 380px;
       gap: 20px;
       align-items: start;
     }
@@ -82,319 +52,389 @@
       box-shadow: var(--shadow);
     }
 
-    .sidebar {
-      padding: 18px;
-      position: sticky;
-      top: 18px;
-    }
-
-    .content {
+    .flow {
       padding: 18px;
     }
 
-    h3 {
-      margin: 0 0 14px;
+    .flow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .flow-header h1 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .flow-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+      max-width: 760px;
+    }
+
+    .flow-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: #fff;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .step.current {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.06);
+      background: #fffdfd;
+    }
+
+    .step.done {
+      border-color: #cce6d3;
+      background: #fcfffc;
+    }
+
+    .step-top {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--red-soft);
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex: 0 0 auto;
+      border: 1px solid var(--red-border);
+    }
+
+    .step h2 {
+      margin: 0 0 4px;
       font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .step-subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .read-block,
+    .fill-block {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .read-block {
+      background: #fafafa;
+    }
+
+    .fill-block {
+      background: #fff;
+    }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+    }
+
+    .read-text {
+      white-space: pre-wrap;
+      line-height: 1.6;
+      font-size: 14px;
     }
 
     .field {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+    }
+
+    .field:last-child {
+      margin-bottom: 0;
     }
 
     .field label {
       display: block;
       margin-bottom: 6px;
       font-size: 13px;
-      color: var(--muted);
       font-weight: 700;
+      color: var(--text);
     }
 
-    .field input,
-    .field select,
-    .field textarea {
+    .field .hint {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    select,
+    textarea,
+    input[type="text"] {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 11px 12px;
+      padding: 12px 12px;
       font-size: 14px;
-      background: white;
       color: var(--text);
+      background: #fff;
       outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
     }
 
-    .field textarea {
-      min-height: 84px;
+    select:focus,
+    textarea:focus,
+    input[type="text"]:focus {
+      border-color: var(--red-border);
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.08);
+    }
+
+    textarea {
+      min-height: 90px;
       resize: vertical;
     }
 
-    .checks {
+    .options {
       display: grid;
       gap: 10px;
     }
 
-    .check {
+    .option {
       display: flex;
       gap: 10px;
       align-items: flex-start;
+      padding: 12px;
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 10px 12px;
       background: #fff;
     }
 
-    .check input {
+    .option input {
       margin-top: 2px;
+      flex: 0 0 auto;
     }
 
-    .check span {
+    .option strong {
+      display: block;
       font-size: 13px;
-      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+
+    .option span {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
     }
 
     .actions {
       display: flex;
+      justify-content: flex-end;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 10px;
     }
 
     button {
       border: 0;
       border-radius: 12px;
-      padding: 12px 14px;
-      cursor: pointer;
-      font-weight: 700;
+      padding: 12px 16px;
       font-size: 14px;
-    }
-
-    .btn-primary {
-      background: var(--brand);
-      color: white;
-      flex: 1;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .btn-secondary {
-      background: white;
-      color: var(--text);
+      background: #fff;
       border: 1px solid var(--line);
+      color: var(--text);
     }
 
-    .tabs {
+    .sidebar {
+      position: sticky;
+      top: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .side-card {
+      padding: 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+
+    .plan-title {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .status-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 16px;
+      margin: 10px 0 14px;
     }
 
-    .tab {
-      background: white;
-      color: var(--muted);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .tab.active {
-      background: var(--brand-soft);
-      color: var(--brand);
-      border-color: #fecaca;
-    }
-
-    .tab-panel {
-      display: none;
-    }
-
-    .tab-panel.active {
-      display: block;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: white;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      min-height: 430px;
-    }
-
-    .card-image {
-      width: 100%;
-      height: 190px;
-      object-fit: cover;
-      display: block;
-      background: #f3f4f6;
-    }
-
-    .card-body {
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      flex: 1;
-    }
-
-    .tag {
+    .status-pill {
       display: inline-flex;
-      width: fit-content;
-      padding: 6px 10px;
+      align-items: center;
+      padding: 8px 10px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 700;
-      background: var(--brand-soft);
-      color: var(--brand);
-    }
-
-    .card h4 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .sub {
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .list {
-      display: grid;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .list div {
-      border-left: 3px solid var(--brand);
-      padding-left: 10px;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .script-box,
-    .rec-box,
-    .close-box {
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      background: white;
+      background: #fff;
+      color: var(--muted);
     }
 
-    .script-box h4,
-    .rec-box h4,
-    .close-box h4 {
-      margin: 0 0 10px;
-      font-size: 16px;
+    .status-pill.good {
+      background: var(--ok-soft);
+      color: var(--ok);
+      border-color: #bbf7d0;
     }
 
-    .script {
-      background: var(--soft);
-      border: 1px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 14px;
-      white-space: pre-wrap;
+    .status-pill.red {
+      background: var(--red-soft);
+      color: var(--red);
+      border-color: var(--red-border);
+    }
+
+    .summary-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .reason-list {
+      margin: 12px 0 0;
+      padding-left: 18px;
       line-height: 1.6;
       font-size: 14px;
     }
 
-    .rec-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 14px;
-    }
-
-    .mini {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .kpi {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .kpi div {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 12px;
-      background: #fcfcfd;
-    }
-
-    .kpi strong {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
+    .reason-list li {
       margin-bottom: 6px;
     }
 
-    .kpi span {
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    details {
-      border: 1px solid var(--line);
+    .speech {
+      border: 1px dashed #d1d5db;
       border-radius: 14px;
-      padding: 12px 14px;
-      background: white;
-      margin-bottom: 10px;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    details p {
-      margin: 10px 0 0;
+      background: #fafafa;
+      padding: 14px;
       font-size: 14px;
       line-height: 1.6;
+      white-space: pre-wrap;
     }
 
-    .footer-note {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--muted);
+    .compare-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .compare-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+      transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .compare-card.active {
+      border-color: var(--red-border);
+      background: #fff7f7;
+      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.06);
+    }
+
+    .compare-card h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .compare-card p {
+      margin: 0;
+      font-size: 13px;
       line-height: 1.55;
+      color: var(--muted);
     }
 
-    .hero-image-strip {
+    .media-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-bottom: 16px;
+      gap: 10px;
     }
 
-    .hero-image-strip img {
+    .media-grid img {
       width: 100%;
-      height: 180px;
+      height: 90px;
       object-fit: cover;
-      border-radius: 18px;
+      border-radius: 12px;
       border: 1px solid var(--line);
-      background: white;
-      box-shadow: var(--shadow);
+      background: #f3f4f6;
+      display: block;
     }
 
-    .highlight {
-      color: var(--brand);
-      font-weight: 800;
+    .media-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
     }
 
-    @media (max-width: 980px) {
-      .grid,
-      .cards,
-      .rec-grid,
-      .hero-image-strip {
+    .small-note {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1024px) {
+      .layout {
         grid-template-columns: 1fr;
       }
 
@@ -402,443 +442,788 @@
         position: static;
       }
     }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 14px;
+      }
+
+      .flow,
+      .side-card {
+        padding: 14px;
+      }
+
+      .media-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="page">
-    <div class="topbar">
-      <div class="title-wrap">
-        <h1>Medicare.pt Demo Sales Script</h1>
-        <p>Single page para demonstração de venda com guião, comparação de planos e recomendação orientativa.</p>
-      </div>
-      <div class="logo-pill">Demo comercial Medicare</div>
-    </div>
-
-    <div class="hero-image-strip">
-      <img src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg" alt="Cartão Platinium Mais Vida" />
-      <img src="https://www.medicare.pt/assets/img/como-usar-plano-medicare/medico-domicilio.png" alt="Médico ao Domicílio Medicare" />
-      <img src="https://www.medicare.pt/assets/img/video-consulta.gif" alt="Vídeo-consulta Medicare" />
-    </div>
-
-    <section class="grid">
-      <aside class="panel sidebar">
-        <h3>Contexto do cliente</h3>
-
-        <div class="field">
-          <label for="customerName">Nome</label>
-          <input id="customerName" type="text" placeholder="Ex.: Ana Martins" />
-        </div>
-
-        <div class="field">
-          <label for="household">N.º de pessoas a proteger</label>
-          <select id="household">
-            <option value="1">1 pessoa</option>
-            <option value="2" selected>2 pessoas</option>
-            <option value="3">3 pessoas</option>
-            <option value="4">4 pessoas</option>
-            <option value="5">5 pessoas</option>
-            <option value="6">6 pessoas</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="priority">Principal motivação</label>
-          <select id="priority">
-            <option value="price">Preço / poupança</option>
-            <option value="family" selected>Proteção familiar</option>
-            <option value="access">Acesso rápido a cuidados</option>
-            <option value="digital">Vídeo-consultas / comodidade</option>
-            <option value="senior">Uso frequente / perfil sénior</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Necessidades identificadas</label>
-          <div class="checks">
-            <label class="check"><input type="checkbox" value="video" /><span>Valoriza vídeo-consultas sem deslocação.</span></label>
-            <label class="check"><input type="checkbox" value="home" /><span>Quer médico ao domicílio / apoio 24h.</span></label>
-            <label class="check"><input type="checkbox" value="dental" /><span>Tem interesse em medicina dentária.</span></label>
-            <label class="check"><input type="checkbox" value="psych" /><span>Interesse em saúde mental / psicologia.</span></label>
-            <label class="check"><input type="checkbox" value="children" /><span>Existem crianças ou gestão familiar do plano.</span></label>
-            <label class="check"><input type="checkbox" value="security" /><span>Valoriza proteção adicional.</span></label>
+    <div class="layout">
+      <main class="panel flow" id="salesFlow">
+        <div class="flow-header">
+          <div>
+            <h1>Guia de chamada Medicare</h1>
+            <p>
+              Estrutura em ordem de chamada: o agente lê o texto, preenche o campo e, ao sair do campo,
+              a recomendação é recalculada automaticamente. A primeira pergunta é o número de pessoas
+              para ativar a sugestão desde el inicio.
+            </p>
+          </div>
+          <div class="flow-badges">
+            <span class="badge" id="progressBadge">0/5 completos</span>
+            <span class="badge" id="nextBadge">Sem sugestão</span>
           </div>
         </div>
 
-        <div class="field">
-          <label for="notes">Notas rápidas</label>
-          <textarea id="notes" placeholder="Ex.: quer algo simples, compara opções, já tem outro plano..."></textarea>
-        </div>
+        <section class="step current" id="step1">
+          <div class="step-top">
+            <div class="step-num">1</div>
+            <div>
+              <h2>Abertura</h2>
+              <p class="step-subtitle">Primeira pergunta. Deve ser simples e útil para ativar a recomendação desde o início.</p>
+            </div>
+          </div>
+
+          <div class="read-block">
+            <div class="label">Ler</div>
+            <div class="read-text">Bom dia. Para o aconselhar bem, começo por uma pergunta simples: para quantas pessoas pretende o plano?</div>
+          </div>
+
+          <div class="fill-block">
+            <div class="label">Preencher</div>
+            <div class="field">
+              <label for="peopleCount">Número de pessoas</label>
+              <select id="peopleCount">
+                <option value="">Selecionar</option>
+                <option value="1">1 pessoa</option>
+                <option value="2">2 pessoas</option>
+                <option value="3">3 pessoas</option>
+                <option value="4">4 pessoas</option>
+                <option value="5">5 pessoas</option>
+                <option value="6">6 pessoas</option>
+              </select>
+              <div class="hint">Enquanto este campo estiver vazio, não há sugestão. Ao sair do campo, começa a recomendação.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" id="step2">
+          <div class="step-top">
+            <div class="step-num">2</div>
+            <div>
+              <h2>Motivação principal</h2>
+              <p class="step-subtitle">Depois do volume, identificar o fator de decisão dominante.</p>
+            </div>
+          </div>
+
+          <div class="read-block">
+            <div class="label">Ler</div>
+            <div class="read-text">Perfeito. E dentro do que procura hoje, o que pesa mais na decisão: poupança, proteção para a família, acesso rápido ou comodidade?</div>
+          </div>
+
+          <div class="fill-block">
+            <div class="label">Preencher</div>
+            <div class="field">
+              <label for="priority">O que pesa mais?</label>
+              <select id="priority">
+                <option value="">Selecionar</option>
+                <option value="price">Preço / contenção de custo</option>
+                <option value="family">Proteção familiar</option>
+                <option value="access">Acesso rápido a cuidados</option>
+                <option value="convenience">Comodidade / serviços à distância</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" id="step3">
+          <div class="step-top">
+            <div class="step-num">3</div>
+            <div>
+              <h2>Padrão de utilização</h2>
+              <p class="step-subtitle">Aqui o objetivo é perceber se o cliente imagina um uso leve, equilibrado ou mais frequente.</p>
+            </div>
+          </div>
+
+          <div class="read-block">
+            <div class="label">Ler</div>
+            <div class="read-text">Para eu ajustar melhor a proposta, imagina um uso mais ocasional, equilibrado ou algo mais intensivo ao longo do ano?</div>
+          </div>
+
+          <div class="fill-block">
+            <div class="label">Preencher</div>
+            <div class="field">
+              <label for="usageProfile">Utilização prevista</label>
+              <select id="usageProfile">
+                <option value="">Selecionar</option>
+                <option value="light">Mais ocasional</option>
+                <option value="balanced">Equilibrada</option>
+                <option value="intense">Mais frequente / intensiva</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" id="step4">
+          <div class="step-top">
+            <div class="step-num">4</div>
+            <div>
+              <h2>Serviços que fazem diferença</h2>
+              <p class="step-subtitle">Usar esta parte para afinar valor percebido e aumentar precisão da proposta.</p>
+            </div>
+          </div>
+
+          <div class="read-block">
+            <div class="label">Ler</div>
+            <div class="read-text">Há algum serviço que, se estiver incluído, faça mais diferença para si? Pode ser vídeo-consultas, médico ao domicílio, saúde mental, dentária ou proteção adicional.</div>
+          </div>
+
+          <div class="fill-block">
+            <div class="label">Preencher</div>
+            <div class="options">
+              <label class="option">
+                <input type="checkbox" name="service" value="video" />
+                <div>
+                  <strong>Vídeo-consultas</strong>
+                  <span>Quando o cliente valoriza resolver à distância e sem deslocação.</span>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" name="service" value="home" />
+                <div>
+                  <strong>Médico ao domicílio</strong>
+                  <span>Quando a conveniência e o apoio domiciliário pesam na decisão.</span>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" name="service" value="mental" />
+                <div>
+                  <strong>Saúde mental / psicologia</strong>
+                  <span>Quando o cliente valoriza acompanhamento adicional.</span>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" name="service" value="dental" />
+                <div>
+                  <strong>Medicina dentária</strong>
+                  <span>Quando o cliente quer uma utilidade prática e recorrente.</span>
+                </div>
+              </label>
+
+              <label class="option">
+                <input type="checkbox" name="service" value="protection" />
+                <div>
+                  <strong>Proteção adicional</strong>
+                  <span>Quando valoriza segurança e maior sensação de cobertura.</span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" id="step5">
+          <div class="step-top">
+            <div class="step-num">5</div>
+            <div>
+              <h2>Travão comercial e notas</h2>
+              <p class="step-subtitle">Último ajuste antes da proposta final e do fecho.</p>
+            </div>
+          </div>
+
+          <div class="read-block">
+            <div class="label">Ler</div>
+            <div class="read-text">Antes de lhe propor a opção mais ajustada, existe alguma preocupação que queira esclarecer já? Preço, comparação com outra solução, dúvida de utilização ou necessidade de pensar?</div>
+          </div>
+
+          <div class="fill-block">
+            <div class="label">Preencher</div>
+
+            <div class="field">
+              <label for="objection">Travão principal</label>
+              <select id="objection">
+                <option value="">Selecionar</option>
+                <option value="price">Preço</option>
+                <option value="compare">Comparação com outra solução</option>
+                <option value="usage">Dúvida se vai usar</option>
+                <option value="think">Quer pensar primeiro</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="agentNotes">Notas do agente</label>
+              <textarea id="agentNotes" placeholder="Ex.: quer algo simples, já tem outra solução, quer foco em família, valoriza comodidade..."></textarea>
+            </div>
+          </div>
+        </section>
 
         <div class="actions">
-          <button class="btn-primary" id="recommendBtn">Gerar recomendação</button>
-          <button class="btn-secondary" id="resetBtn">Limpar</button>
+          <button type="button" class="btn-secondary" id="resetBtn">Limpar</button>
         </div>
-
-        <div class="footer-note">
-          Ferramenta de demo. O guião é orientativo e a recomendação é calculada por reglas simples.
-        </div>
-      </aside>
-
-      <main class="panel content">
-        <div class="tabs">
-          <button class="tab active" data-tab="plans">Planos</button>
-          <button class="tab" data-tab="script">Guião</button>
-          <button class="tab" data-tab="recommendation">Recomendação</button>
-          <button class="tab" data-tab="objections">Objeções</button>
-          <button class="tab" data-tab="closing">Fecho</button>
-        </div>
-
-        <section id="plans" class="tab-panel active">
-          <h3>Planos para a demo</h3>
-          <div class="cards">
-            <article class="card">
-              <img class="card-image" src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg" alt="Medicare plano" />
-              <div class="card-body">
-                <div class="tag">Base demo</div>
-                <h4>Platinium</h4>
-                <div class="sub">Escalão de entrada para discurso de poupança e acesso.</div>
-                <div class="list">
-                  <div>Para cliente sensível a preço.</div>
-                  <div>Útil como ponto de comparação.</div>
-                  <div>Narrativa simples de entrada na rede.</div>
-                </div>
-              </div>
-            </article>
-
-            <article class="card">
-              <img class="card-image" src="https://www.medicare.pt/assets/img/video-consulta.gif" alt="Vídeo-consulta Medicare" />
-              <div class="card-body">
-                <div class="tag">Intermédio demo</div>
-                <h4>Platinium Mais</h4>
-                <div class="sub">Escalón intermedio para elevar valor sin ir directamente al plan más completo.</div>
-                <div class="list">
-                  <div>Buen puente narrativo.</div>
-                  <div>Equilibrio entre simplicidad y valor.</div>
-                  <div>Útil para framing comercial.</div>
-                </div>
-              </div>
-            </article>
-
-            <article class="card">
-              <img class="card-image" src="https://www.medicare.pt/assets/img/como-usar-plano-medicare/medico-domicilio.png" alt="Médico ao domicílio Medicare" />
-              <div class="card-body">
-                <div class="tag">Plano recomendado</div>
-                <h4>Platinium Mais Vida</h4>
-                <div class="sub">En la página pública destaca vídeo-consultas, médico ao domicílio 24h/7d y cobertura de acidentes pessoais. :contentReference[oaicite:1]{index=1}</div>
-                <div class="list">
-                  <div>Muy fuerte para discurso familiar.</div>
-                  <div>Muy fuerte para comodidad y uso digital.</div>
-                  <div>Muy fuerte cuando el cliente quiere más protección.</div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section id="script" class="tab-panel">
-          <h3>Guião de venda</h3>
-
-          <div class="script-box">
-            <h4>Abertura</h4>
-            <div class="script">
-Bom dia. Obrigado pelo seu tempo.
-Antes de lhe sugerir uma opção, gostava de perceber o que é mais importante para si: poupança, proteção para a família, acesso rápido a cuidados ou mais comodidade com serviços à distância.
-
-A ideia é recomendar-lhe um plano ajustado ao uso real e não apenas apresentar nomes de produtos.
-            </div>
-          </div>
-
-          <div class="script-box">
-            <h4>Diagnóstico</h4>
-            <div class="script">
-Para o aconselhar melhor, deixe-me confirmar três pontos:
-1) Quantas pessoas pretende incluir?
-2) O mais importante é preço, rede de prestadores ou serviços adicionais?
-3) Valoriza funcionalidades como vídeo-consultas, médico ao domicílio ou apoio para a família?
-            </div>
-          </div>
-
-          <div class="script-box">
-            <h4>Proposta</h4>
-            <div class="script">
-Pelo que me está a dizer, faz sentido eu não lhe mostrar apenas a solução mais simples, mas a que melhor encaixa no uso previsto.
-Se procura uma solução mais completa, com maior conveniência e proteção adicional, o Platinium Mais Vida tende a ser a proposta mais forte dentro desta demo.
-            </div>
-          </div>
-        </section>
-
-        <section id="recommendation" class="tab-panel">
-          <h3>Recomendação orientativa</h3>
-
-          <div class="rec-grid">
-            <div class="rec-box">
-              <h4>Plano recomendado</h4>
-              <div id="recPlan" class="script">Preencha os dados à esquerda e clique em “Gerar recomendação”.</div>
-            </div>
-
-            <div class="rec-box">
-              <h4>Resumo comercial</h4>
-              <div id="recSummary" class="mini">Ainda sem cálculo.</div>
-
-              <div class="kpi">
-                <div>
-                  <strong>Segmento sugerido</strong>
-                  <span id="kpiSegment">—</span>
-                </div>
-                <div>
-                  <strong>Intensidade de proposta</strong>
-                  <span id="kpiIntensity">—</span>
-                </div>
-                <div>
-                  <strong>Plano principal</strong>
-                  <span id="kpiPlan">—</span>
-                </div>
-                <div>
-                  <strong>Mensagem-chave</strong>
-                  <span id="kpiMessage">—</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="rec-box">
-            <h4>Script gerado para o agente</h4>
-            <div id="dynamicScript" class="script">Sem guião gerado.</div>
-          </div>
-        </section>
-
-        <section id="objections" class="tab-panel">
-          <h3>Tratamento de objeções</h3>
-
-          <details open>
-            <summary>“Só quero algo barato.”</summary>
-            <p>
-              Percebo. Nesse caso, a melhor abordagem é não começar pelo mais completo, mas validar primeiro o nível de utilização esperado. Se a intenção é apenas acesso básico, faz sentido olhar para uma opção simples. Se valoriza conveniência, família ou serviços adicionais, compensa avaliar o nível acima.
-            </p>
-          </details>
-
-          <details>
-            <summary>“Já tenho outra solução.”</summary>
-            <p>
-              Faz sentido comparar. O importante não é trocar por trocar, mas perceber se a solução atual lhe entrega o mesmo nível de comodidade, amplitude de utilização e proteção adicional que procura.
-            </p>
-          </details>
-
-          <details>
-            <summary>“Não sei se vou usar.”</summary>
-            <p>
-              Precisamente por isso vale a pena alinhar o plano ao padrão de utilização. O objetivo é não pagar por algo excessivo, mas também não ficar curto quando a necessidade aparece.
-            </p>
-          </details>
-        </section>
-
-        <section id="closing" class="tab-panel">
-          <h3>Fecho</h3>
-
-          <div class="close-box">
-            <h4>Fecho suave</h4>
-            <div class="script">
-Pelo que me partilhou, o mais sensato é ficar com uma opção alinhada ao seu uso real.
-Se estiver de acordo, o próximo passo é avançarmos com a alternativa recomendada e eu acompanho consigo o processo.
-            </div>
-          </div>
-
-          <div class="close-box">
-            <h4>Fecho por conveniência</h4>
-            <div class="script">
-A vantagem de decidir já é sair desta conversa com uma solução definida e ajustada ao que valoriza.
-Se quiser, recapitulo consigo os pontos principais e avançamos.
-            </div>
-          </div>
-        </section>
       </main>
-    </section>
+
+      <aside class="sidebar">
+        <section class="panel side-card">
+          <div class="eyebrow">Plano sugerido agora</div>
+          <h2 class="plan-title" id="suggestedPlan">Sem sugestão</h2>
+
+          <div class="status-row">
+            <span class="status-pill red" id="confidencePill">À espera do 1.º campo</span>
+            <span class="status-pill" id="statePill">Estado inicial</span>
+          </div>
+
+          <p class="summary-text" id="summaryText">
+            Preencha o número de pessoas para começar. A partir desse momento, a recomendação passa a atualizar-se automaticamente.
+          </p>
+
+          <ul class="reason-list" id="reasonList">
+            <li>Ainda sem critérios suficientes para sugerir um plano.</li>
+          </ul>
+
+          <div class="small-note" id="confidenceText">
+            Sem cálculo ativo.
+          </div>
+        </section>
+
+        <section class="panel side-card">
+          <div class="eyebrow">Frase a ler agora</div>
+          <div class="speech" id="nextLine">
+Bom dia. Para o aconselhar bem, começo por uma pergunta simples: para quantas pessoas pretende o plano?
+          </div>
+        </section>
+
+        <section class="panel side-card">
+          <div class="eyebrow">Proposta gerada</div>
+          <div class="speech" id="proposalText">
+Quando preencher o primeiro campo, começo a construir automaticamente a proposta que o agente deve ler.
+          </div>
+        </section>
+
+        <section class="panel side-card">
+          <div class="eyebrow">Resposta à objeção</div>
+          <div class="speech" id="objectionText">
+Quando o cliente partilhar um travão principal, esta área gera uma resposta curta para o agente usar.
+          </div>
+        </section>
+
+        <section class="panel side-card">
+          <div class="eyebrow">Comparação demo</div>
+          <div class="compare-grid">
+            <article class="compare-card" data-plan="Platinium">
+              <h3>Platinium</h3>
+              <p>Posicionamento demo de entrada: conversa mais simples e sensível a preço.</p>
+            </article>
+
+            <article class="compare-card" data-plan="Platinium Mais">
+              <h3>Platinium Mais</h3>
+              <p>Posicionamento demo intermédio: equilíbrio entre simplicidade e valor percebido.</p>
+            </article>
+
+            <article class="compare-card" data-plan="Platinium Mais Vida">
+              <h3>Platinium Mais Vida</h3>
+              <p>Posicionamento demo mais completo: conveniência, serviços e maior sensação de proteção.</p>
+            </article>
+          </div>
+
+          <div class="small-note">
+            Nesta versão, Platinium e Platinium Mais funcionam como escalões comparativos de demo no discurso do agente.
+          </div>
+        </section>
+
+        <section class="panel side-card">
+          <div class="eyebrow">Imagens públicas Medicare</div>
+          <div class="media-grid">
+            <img
+              src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg"
+              alt="Cartão Medicare"
+              onerror="this.style.display='none';"
+            />
+            <img
+              src="https://www.medicare.pt/assets/img/como-usar-plano-medicare/medico-domicilio.png"
+              alt="Médico ao domicílio Medicare"
+              onerror="this.style.display='none';"
+            />
+            <img
+              src="https://www.medicare.pt/assets/img/video-consulta.gif"
+              alt="Vídeo-consulta Medicare"
+              onerror="this.style.display='none';"
+            />
+          </div>
+          <div class="media-note">
+            Faixa visual de apoio para demo.
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
 
   <script>
-    const tabs = document.querySelectorAll(".tab");
-    const panels = document.querySelectorAll(".tab-panel");
+    const peopleCount = document.getElementById("peopleCount");
+    const priority = document.getElementById("priority");
+    const usageProfile = document.getElementById("usageProfile");
+    const objection = document.getElementById("objection");
+    const agentNotes = document.getElementById("agentNotes");
+    const serviceChecks = Array.from(document.querySelectorAll('input[name="service"]'));
 
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        tabs.forEach(t => t.classList.remove("active"));
-        panels.forEach(p => p.classList.remove("active"));
-        tab.classList.add("active");
-        document.getElementById(tab.dataset.tab).classList.add("active");
-      });
-    });
-
-    const recommendBtn = document.getElementById("recommendBtn");
+    const suggestedPlan = document.getElementById("suggestedPlan");
+    const summaryText = document.getElementById("summaryText");
+    const reasonList = document.getElementById("reasonList");
+    const nextLine = document.getElementById("nextLine");
+    const proposalText = document.getElementById("proposalText");
+    const objectionText = document.getElementById("objectionText");
+    const progressBadge = document.getElementById("progressBadge");
+    const nextBadge = document.getElementById("nextBadge");
+    const confidencePill = document.getElementById("confidencePill");
+    const statePill = document.getElementById("statePill");
+    const confidenceText = document.getElementById("confidenceText");
     const resetBtn = document.getElementById("resetBtn");
 
-    const customerName = document.getElementById("customerName");
-    const household = document.getElementById("household");
-    const priority = document.getElementById("priority");
-    const notes = document.getElementById("notes");
-    const needChecks = Array.from(document.querySelectorAll('.checks input[type="checkbox"]'));
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const step3 = document.getElementById("step3");
+    const step4 = document.getElementById("step4");
+    const step5 = document.getElementById("step5");
 
-    const recPlan = document.getElementById("recPlan");
-    const recSummary = document.getElementById("recSummary");
-    const dynamicScript = document.getElementById("dynamicScript");
+    const compareCards = Array.from(document.querySelectorAll(".compare-card"));
 
-    const kpiSegment = document.getElementById("kpiSegment");
-    const kpiIntensity = document.getElementById("kpiIntensity");
-    const kpiPlan = document.getElementById("kpiPlan");
-    const kpiMessage = document.getElementById("kpiMessage");
+    const priorityLabels = {
+      price: "contenção de custo",
+      family: "proteção familiar",
+      access: "acesso rápido",
+      convenience: "comodidade"
+    };
 
-    function getSelectedNeeds() {
-      return needChecks.filter(c => c.checked).map(c => c.value);
-    }
+    const usageLabels = {
+      light: "mais ocasional",
+      balanced: "equilibrada",
+      intense: "mais frequente"
+    };
 
-    function classifySegment(priorityValue, people, selectedNeeds) {
-      if (priorityValue === "senior") return "uso frequente";
-      if (priorityValue === "digital") return "digital";
-      if (priorityValue === "family" || selectedNeeds.includes("children") || people >= 3) return "familiar";
-      if (priorityValue === "access") return "acesso rápido";
-      return "preço";
-    }
+    const serviceLabels = {
+      video: "vídeo-consultas",
+      home: "médico ao domicílio",
+      mental: "saúde mental",
+      dental: "medicina dentária",
+      protection: "proteção adicional"
+    };
 
-    function getRecommendation() {
-      const name = customerName.value.trim() || "Cliente";
-      const people = Number(household.value);
-      const priorityValue = priority.value;
-      const selectedNeeds = getSelectedNeeds();
-      const segment = classifySegment(priorityValue, people, selectedNeeds);
-
-      let scorePMV = 0;
-      let scorePM = 0;
-      let scoreP = 0;
-
-      if (priorityValue === "digital") scorePMV += 4;
-      if (priorityValue === "family") scorePMV += 3;
-      if (priorityValue === "access") scorePM += 2, scorePMV += 2;
-      if (priorityValue === "price") scoreP += 3, scorePM += 1;
-      if (priorityValue === "senior") scorePMV += 3, scorePM += 1;
-
-      if (selectedNeeds.includes("video")) scorePMV += 4;
-      if (selectedNeeds.includes("home")) scorePMV += 4;
-      if (selectedNeeds.includes("psych")) scorePMV += 3;
-      if (selectedNeeds.includes("security")) scorePMV += 3;
-      if (selectedNeeds.includes("children")) scorePMV += 2, scorePM += 1;
-      if (selectedNeeds.includes("dental")) scorePMV += 2, scorePM += 2, scoreP += 1;
-
-      if (people >= 3) scorePMV += 3;
-      if (people === 2) scorePMV += 1, scorePM += 1;
-      if (people === 1 && priorityValue === "price") scoreP += 2;
-
-      let plan = "Platinium Mais Vida";
-      let intensity = "Alta";
-      let keyMessage = "conveniência + proteção";
-      let rationale = [];
-
-      if (scoreP >= scorePM && scoreP >= scorePMV) {
-        plan = "Platinium";
-        intensity = "Baixa";
-        keyMessage = "entrada / poupança";
-        rationale = [
-          "perfil sensível a preço",
-          "necessidade mais simples",
-          "boa narrativa para acesso básico"
-        ];
-      } else if (scorePM >= scorePMV) {
-        plan = "Platinium Mais";
-        intensity = "Média";
-        keyMessage = "equilíbrio";
-        rationale = [
-          "cliente procura mais do que entrada",
-          "sem exigir a proposta mais completa",
-          "bom patamar intermédio para comparação"
-        ];
-      } else {
-        plan = "Platinium Mais Vida";
-        intensity = "Alta";
-        keyMessage = "conveniência + proteção";
-        rationale = [
-          "melhor encaixe para uso familiar ou digital",
-          "mais força comercial quando há valorização de serviços",
-          "proposta mais completa dentro da demo"
-        ];
+    const planProfiles = {
+      "Platinium": {
+        short: "Entrada demo",
+        summary: "Ajuste demo mais simples, mais fácil de posicionar quando o cliente é muito sensível a preço e imagina um uso leve.",
+        closer: "Faz sentido apresentá-lo como ponto de entrada e confirmar depois se o cliente sente falta de algo mais."
+      },
+      "Platinium Mais": {
+        short: "Equilíbrio demo",
+        summary: "Ajuste demo intermédio. Serve bem quando o cliente quer algo acima do básico, mas ainda não pede o pacote mais forte.",
+        closer: "Faz sentido posicioná-lo como equilíbrio entre simplicidade e valor percebido."
+      },
+      "Platinium Mais Vida": {
+        short: "Mais completo demo",
+        summary: "Ajuste demo mais forte para famílias, utilização mais rica e valorização de comodidade, serviços e proteção.",
+        closer: "Faz sentido posicioná-lo como proposta principal quando o cliente pede mais conveniência e sensação de cobertura."
       }
+    };
 
-      const selectedText = selectedNeeds.length ? selectedNeeds.join(", ") : "nenhuma necessidade adicional marcada";
+    function getSelectedServices() {
+      return serviceChecks.filter(item => item.checked).map(item => item.value);
+    }
 
+    function joinFriendly(items) {
+      if (!items.length) return "";
+      if (items.length === 1) return items[0];
+      if (items.length === 2) return items[0] + " e " + items[1];
+      return items.slice(0, -1).join(", ") + " e " + items[items.length - 1];
+    }
+
+    function getState() {
       return {
-        name,
-        people,
-        plan,
-        segment,
-        intensity,
-        keyMessage,
-        selectedText,
-        rationale,
-        notes: notes.value.trim()
+        people: peopleCount.value ? Number(peopleCount.value) : null,
+        priority: priority.value || "",
+        usage: usageProfile.value || "",
+        services: getSelectedServices(),
+        objection: objection.value || "",
+        notes: agentNotes.value.trim()
       };
     }
 
-    function renderRecommendation() {
-      const r = getRecommendation();
-
-      recPlan.innerHTML = `
-<span class="highlight">${r.plan}</span>
-
-Cliente: ${r.name}
-Pessoas a incluir: ${r.people}
-Segmento identificado: ${r.segment}
-
-Motivos principais:
-- ${r.rationale[0]}
-- ${r.rationale[1]}
-- ${r.rationale[2]}
-
-Necessidades marcadas:
-- ${r.selectedText}
-
-Nota do agente:
-- ${r.notes || "sem notas adicionais"}
-      `.trim();
-
-      recSummary.innerHTML = `
-A recomendação sugere <strong>${r.plan}</strong> para um perfil <strong>${r.segment}</strong>.
-O discurso deve acentuar <strong>${r.keyMessage}</strong> e ligar o plano ao uso previsto.
-      `.trim();
-
-      dynamicScript.innerHTML = `
-${r.name}, pelo que me indicou, faz sentido eu posicionar-lhe o <span class="highlight">${r.plan}</span>.
-
-Não lhe estou a sugerir uma opção ao acaso. Estou a sugeri-la porque o seu contexto aponta para um perfil <span class="highlight">${r.segment}</span>, com ${r.people} pessoa(s) e com foco em ${r.keyMessage}.
-
-A minha proposta seria simples:
-primeiro confirmamos que o objetivo é escolher um plano ajustado ao uso real;
-depois validamos se quer apenas acesso básico ou também conveniência, proteção e facilidade de utilização;
-e, com base nisso, o ${r.plan} é a proposta que melhor enquadra esta necessidade dentro desta demo.
-      `.trim();
-
-      kpiSegment.textContent = r.segment;
-      kpiIntensity.textContent = r.intensity;
-      kpiPlan.textContent = r.plan;
-      kpiMessage.textContent = r.keyMessage;
-
-      document.querySelector('[data-tab="recommendation"]').click();
+    function getCompletion(state) {
+      return [
+        !!state.people,
+        !!state.priority,
+        !!state.usage,
+        state.services.length > 0,
+        !!state.objection || !!state.notes
+      ];
     }
 
-    function resetAll() {
-      customerName.value = "";
-      household.value = "2";
-      priority.value = "family";
-      notes.value = "";
-      needChecks.forEach(c => c.checked = false);
+    function markSteps(completion) {
+      const steps = [step1, step2, step3, step4, step5];
+      let currentAssigned = false;
 
-      recPlan.textContent = "Preencha os dados à esquerda e clique em “Gerar recomendação”.";
-      recSummary.textContent = "Ainda sem cálculo.";
-      dynamicScript.textContent = "Sem guião gerado.";
-      kpiSegment.textContent = "—";
-      kpiIntensity.textContent = "—";
-      kpiPlan.textContent = "—";
-      kpiMessage.textContent = "—";
+      steps.forEach((step, index) => {
+        step.classList.remove("done", "current");
+
+        if (completion[index]) {
+          step.classList.add("done");
+        } else if (!currentAssigned) {
+          step.classList.add("current");
+          currentAssigned = true;
+        }
+      });
+
+      if (!currentAssigned) {
+        step5.classList.add("current");
+      }
     }
 
-    recommendBtn.addEventListener("click", renderRecommendation);
-    resetBtn.addEventListener("click", resetAll);
+    function getScores(state) {
+      const score = {
+        "Platinium": 0,
+        "Platinium Mais": 0,
+        "Platinium Mais Vida": 0
+      };
+
+      if (!state.people) return score;
+
+      if (state.people === 1) {
+        score["Platinium"] += 5;
+        score["Platinium Mais"] += 2;
+      } else if (state.people === 2) {
+        score["Platinium"] += 2;
+        score["Platinium Mais"] += 5;
+        score["Platinium Mais Vida"] += 3;
+      } else if (state.people === 3) {
+        score["Platinium Mais"] += 4;
+        score["Platinium Mais Vida"] += 4;
+      } else if (state.people >= 4) {
+        score["Platinium Mais Vida"] += 6;
+        score["Platinium Mais"] += 2;
+      }
+
+      if (state.priority === "price") {
+        score["Platinium"] += 4;
+        score["Platinium Mais"] += 2;
+      }
+
+      if (state.priority === "family") {
+        score["Platinium Mais Vida"] += 4;
+        score["Platinium Mais"] += 2;
+      }
+
+      if (state.priority === "access") {
+        score["Platinium Mais"] += 3;
+        score["Platinium Mais Vida"] += 3;
+      }
+
+      if (state.priority === "convenience") {
+        score["Platinium Mais Vida"] += 5;
+      }
+
+      if (state.usage === "light") {
+        score["Platinium"] += 2;
+      }
+
+      if (state.usage === "balanced") {
+        score["Platinium Mais"] += 3;
+        score["Platinium Mais Vida"] += 1;
+      }
+
+      if (state.usage === "intense") {
+        score["Platinium Mais Vida"] += 4;
+        score["Platinium Mais"] += 1;
+      }
+
+      state.services.forEach(service => {
+        if (service === "video") {
+          score["Platinium Mais Vida"] += 4;
+        }
+        if (service === "home") {
+          score["Platinium Mais Vida"] += 4;
+        }
+        if (service === "mental") {
+          score["Platinium Mais Vida"] += 3;
+        }
+        if (service === "dental") {
+          score["Platinium"] += 1;
+          score["Platinium Mais"] += 2;
+          score["Platinium Mais Vida"] += 2;
+        }
+        if (service === "protection") {
+          score["Platinium Mais Vida"] += 3;
+        }
+      });
+
+      if (state.objection === "price") {
+        score["Platinium"] += 2;
+        score["Platinium Mais"] += 1;
+      }
+
+      if (state.objection === "compare") {
+        score["Platinium Mais"] += 1;
+      }
+
+      if (state.objection === "usage") {
+        score["Platinium"] += 1;
+        score["Platinium Mais"] += 1;
+      }
+
+      if (state.objection === "think") {
+        score["Platinium Mais"] += 1;
+      }
+
+      return score;
+    }
+
+    function getSuggestedPlan(state) {
+      if (!state.people) return null;
+
+      const scores = getScores(state);
+      let winner = "Platinium";
+      let max = scores[winner];
+
+      Object.keys(scores).forEach(plan => {
+        if (scores[plan] > max) {
+          winner = plan;
+          max = scores[plan];
+        }
+      });
+
+      return {
+        name: winner,
+        score: max,
+        scores
+      };
+    }
+
+    function buildReasons(state, planName) {
+      const reasons = [];
+
+      if (!state.people) return ["Ainda não existe informação suficiente para recomendar."];
+
+      if (planName === "Platinium") {
+        if (state.people === 1) reasons.push("É para 1 pessoa, o que favorece uma entrada mais simples.");
+        if (state.priority === "price") reasons.push("O critério dominante é contenção de custo.");
+        if (state.usage === "light") reasons.push("A utilização prevista é mais ocasional.");
+        if (!reasons.length) reasons.push("Neste momento, a leitura mais prudente é começar pela opção demo de entrada.");
+      }
+
+      if (planName === "Platinium Mais") {
+        if (state.people === 2 || state.people === 3) reasons.push("O número de pessoas puxa para um escalão intermédio.");
+        if (state.priority === "access") reasons.push("Há procura de acesso rápido sem necessidade de ir logo ao topo.");
+        if (state.usage === "balanced") reasons.push("A utilização prevista é equilibrada.");
+        if (state.objection === "compare" || state.objection === "think") reasons.push("É um bom plano de comparação e transição no discurso comercial.");
+        if (!reasons.length) reasons.push("Neste momento, o melhor encaixe demo é o patamar intermédio.");
+      }
+
+      if (planName === "Platinium Mais Vida") {
+        if (state.people >= 4) reasons.push("Mais pessoas normalmente justificam uma proposta mais completa.");
+        if (state.priority === "family") reasons.push("A motivação principal é proteção familiar.");
+        if (state.priority === "convenience") reasons.push("O cliente valoriza comodidade e serviços à distância.");
+        if (state.usage === "intense") reasons.push("A utilização prevista é mais frequente.");
+        if (state.services.includes("video")) reasons.push("Vídeo-consultas são relevantes para este cliente.");
+        if (state.services.includes("home")) reasons.push("Médico ao domicílio pesa na decisão.");
+        if (state.services.includes("mental")) reasons.push("Saúde mental acrescenta valor percebido.");
+        if (state.services.includes("protection")) reasons.push("O cliente valoriza proteção adicional.");
+        if (!reasons.length) reasons.push("O conjunto de sinais aponta para a proposta demo mais completa.");
+      }
+
+      return reasons.slice(0, 4);
+    }
+
+    function getConfidenceLabel(completedCount) {
+      if (completedCount === 0) {
+        return {
+          pill: "À espera do 1.º campo",
+          state: "Estado inicial",
+          detail: "Sem cálculo ativo.",
+          red: true
+        };
+      }
+
+      if (completedCount === 1) {
+        return {
+          pill: "Leitura inicial",
+          state: "Baseado no volume",
+          detail: "Sugestão ainda inicial, baseada quase só no número de pessoas.",
+          red: false
+        };
+      }
+
+      if (completedCount <= 3) {
+        return {
+          pill: "Leitura intermédia",
+          state: "Ajuste em curso",
+          detail: "A sugestão já tem contexto suficiente para orientar a conversa.",
+          red: false
+        };
+      }
+
+      return {
+        pill: "Leitura forte",
+        state: "Pronto para propor",
+        detail: "Já existe contexto suficiente para propor e tratar objeções.",
+        red: false
+      };
+    }
+
+    function buildNextQuestion(state, suggestion) {
+      if (!state.people) {
+        return "Bom dia. Para o aconselhar bem, começo por uma pergunta simples: para quantas pessoas pretende o plano?";
+      }
+
+      if (!state.priority) {
+        return "Perfeito. E dentro do que procura hoje, o que pesa mais na decisão: poupança, proteção para a família, acesso rápido ou comodidade?";
+      }
+
+      if (!state.usage) {
+        return "Para eu ajustar melhor a proposta, imagina um uso mais ocasional, equilibrado ou algo mais intensivo ao longo do ano?";
+      }
+
+      if (!state.services.length) {
+        return "Há algum serviço que, se estiver incluído, faça mais diferença para si? Pode ser vídeo-consultas, médico ao domicílio, saúde mental, dentária ou proteção adicional.";
+      }
+
+      if (!state.objection && !state.notes) {
+        return "Antes de lhe propor a opção mais ajustada, existe alguma preocupação que queira esclarecer já?";
+      }
+
+      return "Pelo que me está a dizer, já consigo posicionar-lhe a opção que melhor encaixa neste momento.";
+    }
+
+    function buildProposal(state, suggestion) {
+      if (!state.people || !suggestion) {
+        return "Quando preencher o primeiro campo, começo a construir automaticamente a proposta que o agente deve ler.";
+      }
+
+      const peopleText = state.people === 1 ? "1 pessoa" : state.people + " pessoas";
+      const parts = [];
+
+      parts.push("Pelo que me está a indicar, e sendo para " + peopleText + ", a proposta demo que neste momento faz mais sentido é o " + suggestion.name + ".");
+
+      if (state.priority) {
+        parts.push("O fator que mais pesa aqui é " + priorityLabels[state.priority] + ".");
+      }
+
+      if (state.usage) {
+        parts.push("A utilização prevista é " + usageLabels[state.usage] + ".");
+      }
+
+      if (state.services.length) {
+        const servicesText = joinFriendly(state.services.map(service => serviceLabels[service]));
+        parts.push("Além disso, está a valorizar " + servicesText + ".");
+      }
+
+      parts.push(planProfiles[suggestion.name].closer);
+      parts.push("Se estiver de acordo, explico-lhe em poucos segundos por que esta opção encaixa melhor do que as restantes nesta demonstração.");
+
+      return parts.join(" ");
+    }
+
+    function buildObjectionReply(state, suggestion) {
+      if (!state.objection) {
+        return "Quando o cliente partilhar um travão principal, esta área gera uma resposta curta para o agente usar.";
+      }
+
+      const planName = suggestion ? suggestion.name : "a opção sugerida";
+
+      if (state.objection === "price") {
+        return "Percebo. Então o mais importante aqui é não sobrecarregar a escolha. Posso começar pela opção que faz sentido para o seu contexto atual e comparar rapidamente com um nível acima apenas para perceber o que ganha ou prescinde. Neste momento, " + planName + " é a referência mais alinhada para essa conversa.";
+      }
+
+      if (state.objection === "compare") {
+        return "Faz sentido comparar. O meu objetivo aqui não é mudar por mudar, mas perceber se a solução atual lhe entrega o mesmo nível de encaixe para o uso previsto. Posso resumir em 30 segundos porque " + planName + " é a referência que melhor bate certo com o que acabou de me dizer.";
+      }
+
+      if (state.objection === "usage") {
+        return "É precisamente por isso que vale a pena alinhar a proposta ao padrão de utilização. Não faz sentido ficar demasiado acima do que precisa, mas também não ficar curto. Neste momento, " + planName + " é a opção demo que melhor equilibra esse risco.";
+      }
+
+      if (state.objection === "think") {
+        return "Claro. Antes de decidir, deixo-lhe um resumo objetivo: pelo seu perfil, " + planName + " é a opção demo mais ajustada neste momento, sobretudo pelo encaixe com o número de pessoas, prioridade e uso previsto. Assim consegue pensar com uma recomendação clara em vez de uma lista de alternativas.";
+      }
+
+      return "Sem objeção ativa.";
+    }
+
+    function highlightPlan(planName) {
+      compareCards.forEach(card => {
+        card.classList.toggle("active", card.dataset.plan === planName);
+      });
+    }
+
+    function render() {
+      const state = getState();
+      const completion = getCompletion(state);
+      const completedCount = completion.filter(Boolean).length;
+      const suggestion = getSuggestedPlan(state);
+      const confidence = getConfidenceLabel(completedCount);
+
+      markSteps(completion);
+
+      progressBadge.textContent = completedCount + "/5 completos";
+      nextBadge.textContent = suggestion ? suggestion.name : "Sem sugestão";
+
+      confidencePill.textContent = confidence.pill;
+      confidencePill.classList.toggle("red", confidence.red);
+      confidencePill.classList.toggle("good", !confidence.red);
+
+      statePill.textContent = confidence.state;
+      confidenceText.textContent = confidence.detail;
+
+      nextLine.textContent = buildNextQuestion(state, suggestion);
+      proposalText.textContent = buildProposal(state, suggestion);
+      objectionText.textContent = buildObjectionReply(state, suggestion);
+
+      if (!suggestion) {
+        suggestedPlan.textContent = "Sem sugestão";
+        summaryText.textContent = "Preencha o número de pessoas para começar. A partir desse momento, a recomendação passa a atualizar-se automaticamente.";
+        reasonList.innerHTML = "<li>Ainda sem critérios suficientes para sugerir um plano.</li>";
+        highlightPlan("");
+        return;
+      }
+
+      suggestedPlan.textContent = suggestion.name;
+      summaryText.textContent = planProfiles[suggestion.name].summary;
+
+      const reasons = buildReasons(state, suggestion.name);
+      reasonList.innerHTML = reasons.map(reason => "<li>" + reason + "</li>").join("");
+
+      highlightPlan(suggestion.name);
+    }
+
+    function resetForm() {
+      peopleCount.value = "";
+      priority.value = "";
+      usageProfile.value = "";
+      objection.value = "";
+      agentNotes.value = "";
+      serviceChecks.forEach(item => {
+        item.checked = false;
+      });
+      render();
+    }
+
+    document.getElementById("salesFlow").addEventListener("focusout", function (event) {
+      if (event.target.matches("select, textarea, input[type='text'], input[type='checkbox']")) {
+        render();
+      }
+    }, true);
+
+    document.getElementById("salesFlow").addEventListener("change", function (event) {
+      if (event.target.matches("select, input[type='checkbox']")) {
+        render();
+      }
+    });
+
+    resetBtn.addEventListener("click", resetForm);
+
+    render();
   </script>
 </body>
 </html>
