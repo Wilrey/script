@@ -4,21 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Medicare | Guia de Chamada</title>
+
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
     :root {
-      --bg: #f5f7fb;
+      --bg: #f6f7f9;
       --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --line: #e5e7eb;
-      --brand: #b91c1c;
-      --brand-dark: #7f1d1d;
-      --brand-soft: #fef2f2;
-      --brand-border: #fecaca;
-      --good: #166534;
-      --good-soft: #f0fdf4;
-      --good-border: #bbf7d0;
-      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+      --text: #28303f;
+      --muted: #6f7787;
+      --line: #e6e8ee;
+      --brand: #c61d2d;
+      --brand-dark: #a41826;
+      --brand-soft: #fff5f6;
+      --brand-border: #ffd6db;
+      --ok: #1a7f46;
+      --ok-soft: #eefcf4;
+      --ok-border: #c7f0d6;
+      --shadow: 0 18px 48px rgba(20, 28, 45, 0.08);
       --radius: 22px;
     }
 
@@ -28,16 +31,16 @@
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Montserrat", Arial, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top right, rgba(185, 28, 28, 0.08), transparent 18%),
-        radial-gradient(circle at top left, rgba(127, 29, 29, 0.05), transparent 18%),
+        radial-gradient(circle at top right, rgba(198, 29, 45, 0.06), transparent 18%),
+        radial-gradient(circle at top left, rgba(198, 29, 45, 0.03), transparent 20%),
         var(--bg);
     }
 
     .page {
-      max-width: 1320px;
+      max-width: 1340px;
       margin: 0 auto;
       padding: 22px;
     }
@@ -55,6 +58,7 @@
       gap: 18px;
       padding: 18px;
       margin-bottom: 18px;
+      align-items: stretch;
     }
 
     .hero-copy {
@@ -62,24 +66,23 @@
       flex-direction: column;
       justify-content: space-between;
       gap: 18px;
-      min-height: 310px;
-      padding: 8px 4px 4px 4px;
+      min-height: 320px;
     }
 
-    .brand-row {
+    .brand-pill {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       width: fit-content;
+      padding: 9px 14px;
       border-radius: 999px;
       background: var(--brand-soft);
       border: 1px solid var(--brand-border);
-      padding: 8px 12px;
+      color: var(--brand);
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .05em;
       text-transform: uppercase;
-      color: var(--brand);
     }
 
     .brand-dot {
@@ -90,26 +93,29 @@
       flex: 0 0 auto;
     }
 
-    .hero-title {
-      margin: 12px 0 8px;
-      font-size: 38px;
-      line-height: 1.02;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-subtitle {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--muted);
-      max-width: 700px;
-    }
-
-    .hero-speech {
+    .speech-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
+      padding: 20px;
+      border-radius: 22px;
       border: 1px solid var(--brand-border);
-      background: linear-gradient(180deg, #fff8f8, #ffffff);
-      border-radius: 20px;
-      padding: 16px;
+      background: linear-gradient(180deg, #fff9fa, #ffffff);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speech-card::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -60px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(198, 29, 45, 0.09), transparent 65%);
+      pointer-events: none;
     }
 
     .speech-label {
@@ -117,22 +123,27 @@
       margin-bottom: 10px;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .05em;
       text-transform: uppercase;
       color: var(--brand);
+      position: relative;
+      z-index: 1;
     }
 
-    .hero-speech-text {
-      font-size: 18px;
-      line-height: 1.6;
-      font-weight: 700;
+    .speech-text {
+      font-size: 29px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-media {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.08fr .92fr;
       gap: 12px;
-      min-height: 310px;
+      min-height: 320px;
     }
 
     .hero-main,
@@ -141,21 +152,20 @@
       overflow: hidden;
       border-radius: 20px;
       border: 1px solid var(--line);
-      background: #fff;
+      background: linear-gradient(180deg, #ffffff, #f9fafc);
     }
 
     .hero-main {
-      padding: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(180deg, #ffffff, #f8fafc);
+      padding: 18px;
     }
 
     .hero-main img {
       width: 100%;
       height: 100%;
-      max-height: 270px;
+      max-height: 280px;
       object-fit: contain;
       display: block;
     }
@@ -179,11 +189,11 @@
       bottom: 12px;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255,255,255,0.94);
+      border: 1px solid rgba(255,255,255,0.95);
+      color: var(--brand-dark);
       font-size: 12px;
       font-weight: 800;
-      color: var(--brand-dark);
       backdrop-filter: blur(6px);
     }
 
@@ -204,53 +214,47 @@
       padding: 18px;
       margin-bottom: 14px;
       background: #fff;
-      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+      transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
     }
 
     .step.current {
       border-color: var(--brand-border);
-      box-shadow: 0 0 0 4px rgba(185, 28, 28, 0.05);
       background: linear-gradient(180deg, #fffdfd, #ffffff);
+      box-shadow: 0 0 0 4px rgba(198, 29, 45, 0.04);
     }
 
     .step.done {
-      border-color: var(--good-border);
+      border-color: var(--ok-border);
       background: linear-gradient(180deg, #fcfffd, #ffffff);
     }
 
     .step-top {
       display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 12px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
     }
 
     .step-num {
       width: 36px;
       height: 36px;
       border-radius: 50%;
+      border: 1px solid var(--brand-border);
       background: var(--brand-soft);
       color: var(--brand);
-      border: 1px solid var(--brand-border);
+      font-size: 14px;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 15px;
-      font-weight: 800;
       flex: 0 0 auto;
     }
 
     .step-title {
       margin: 0;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.2;
-    }
-
-    .step-subtitle {
-      margin: 4px 0 0;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--muted);
+      font-weight: 800;
     }
 
     .step-grid {
@@ -267,7 +271,7 @@
     }
 
     .block.read {
-      background: #fafafa;
+      background: #fafbfc;
     }
 
     .block-label {
@@ -275,14 +279,15 @@
       margin-bottom: 10px;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .05em;
       text-transform: uppercase;
       color: var(--muted);
     }
 
     .read-text {
       font-size: 15px;
-      line-height: 1.7;
+      line-height: 1.75;
+      font-weight: 600;
       white-space: pre-wrap;
     }
 
@@ -296,7 +301,7 @@
 
     .field label {
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       font-size: 13px;
       font-weight: 700;
       color: var(--text);
@@ -318,6 +323,7 @@
       border-radius: 12px;
       padding: 12px 12px;
       font-size: 14px;
+      font-family: inherit;
       background: #fff;
       color: var(--text);
       outline: none;
@@ -328,7 +334,7 @@
     textarea:focus,
     input[type="text"]:focus {
       border-color: var(--brand-border);
-      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.08);
+      box-shadow: 0 0 0 3px rgba(198, 29, 45, 0.08);
     }
 
     textarea {
@@ -346,9 +352,10 @@
       border: 0;
       border-radius: 12px;
       padding: 12px 16px;
-      cursor: pointer;
       font-size: 14px;
       font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
     }
 
     .btn-secondary {
@@ -373,7 +380,7 @@
       margin-bottom: 8px;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: .04em;
+      letter-spacing: .05em;
       text-transform: uppercase;
       color: var(--muted);
     }
@@ -383,91 +390,93 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
+      margin-bottom: 10px;
     }
 
     .plan-name {
       margin: 0;
       font-size: 28px;
       line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .status-badge {
       padding: 8px 10px;
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
       border: 1px solid var(--line);
       background: #fff;
       color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
       white-space: nowrap;
     }
 
     .status-badge.waiting {
+      color: var(--brand);
       background: var(--brand-soft);
       border-color: var(--brand-border);
-      color: var(--brand);
     }
 
     .status-badge.ready {
-      background: var(--good-soft);
-      border-color: var(--good-border);
-      color: var(--good);
-    }
-
-    .suggest-summary {
-      margin: 10px 0 12px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--text);
+      color: var(--ok);
+      background: var(--ok-soft);
+      border-color: var(--ok-border);
     }
 
     .suggest-visual {
-      position: relative;
-      overflow: hidden;
+      width: 100%;
+      min-height: 180px;
       border-radius: 18px;
       border: 1px solid var(--line);
       background: linear-gradient(180deg, #ffffff, #f8fafc);
-      min-height: 170px;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 16px;
-      margin-bottom: 14px;
+      overflow: hidden;
+      margin-bottom: 12px;
     }
 
     .suggest-visual img {
-      width: 100%;
-      height: 150px;
+      max-width: 100%;
+      max-height: 150px;
       object-fit: contain;
       display: none;
     }
 
     .suggest-placeholder {
-      font-size: 15px;
-      line-height: 1.5;
-      color: var(--muted);
-      text-align: center;
-      max-width: 240px;
-    }
-
-    .reason-list {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .reason-list li {
-      margin-bottom: 8px;
       font-size: 14px;
       line-height: 1.55;
+      color: var(--muted);
+      text-align: center;
+      max-width: 250px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
     }
 
     .speech-box {
-      border: 1px dashed #d1d5db;
+      border: 1px dashed #d2d8e2;
       border-radius: 16px;
-      background: #fafafa;
+      background: #fafbfc;
       padding: 14px;
       font-size: 14px;
-      line-height: 1.65;
+      line-height: 1.7;
+      font-weight: 600;
       white-space: pre-wrap;
     }
 
@@ -478,7 +487,7 @@
 
     .mini-plan {
       display: grid;
-      grid-template-columns: 88px 1fr;
+      grid-template-columns: 86px 1fr;
       gap: 12px;
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -489,18 +498,18 @@
 
     .mini-plan.active {
       border-color: var(--brand-border);
-      background: linear-gradient(180deg, #fff7f7, #ffffff);
-      box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.05);
+      background: linear-gradient(180deg, #fff7f8, #ffffff);
+      box-shadow: 0 0 0 3px rgba(198, 29, 45, 0.04);
     }
 
     .mini-plan img {
       width: 100%;
-      height: 68px;
+      height: 66px;
       object-fit: contain;
       border-radius: 12px;
       background: #f8fafc;
+      border: 1px solid #eef1f6;
       display: block;
-      border: 1px solid #eef2f7;
       padding: 4px;
     }
 
@@ -508,6 +517,7 @@
       margin: 0 0 4px;
       font-size: 15px;
       line-height: 1.2;
+      font-weight: 800;
     }
 
     .mini-plan p {
@@ -515,13 +525,7 @@
       font-size: 12px;
       line-height: 1.5;
       color: var(--muted);
-    }
-
-    .note {
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--muted);
-      margin-top: 8px;
+      font-weight: 500;
     }
 
     @media (max-width: 1180px) {
@@ -538,7 +542,7 @@
       }
     }
 
-    @media (max-width: 820px) {
+    @media (max-width: 860px) {
       .step-grid {
         grid-template-columns: 1fr;
       }
@@ -550,6 +554,10 @@
       .hero-side {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: unset;
+      }
+
+      .speech-text {
+        font-size: 23px;
       }
     }
 
@@ -564,20 +572,16 @@
         padding: 14px;
       }
 
-      .hero-title {
-        font-size: 30px;
-      }
-
-      .hero-speech-text {
-        font-size: 16px;
-      }
-
       .hero-side {
         grid-template-columns: 1fr;
       }
 
+      .speech-text {
+        font-size: 20px;
+      }
+
       .mini-plan {
-        grid-template-columns: 76px 1fr;
+        grid-template-columns: 74px 1fr;
       }
     }
   </style>
@@ -587,21 +591,14 @@
 
     <section class="panel hero">
       <div class="hero-copy">
-        <div>
-          <div class="brand-row">
-            <span class="brand-dot"></span>
-            <span>Medicare | Guia de Chamada</span>
-          </div>
-          <h1 class="hero-title">Conduza a chamada com clareza e proponha com segurança</h1>
-          <p class="hero-subtitle">
-            Primeiro quantifique. Depois descubra o que realmente pesa na decisão. No lado direito,
-            veja sempre o plano sugerido, a proposta para ler e a resposta pronta caso o cliente trave.
-          </p>
+        <div class="brand-pill">
+          <span class="brand-dot"></span>
+          <span>Medicare</span>
         </div>
 
-        <div class="hero-speech">
-          <span class="speech-label">Frase a dizer agora</span>
-          <div id="currentSpeech" class="hero-speech-text">
+        <div class="speech-card">
+          <span class="speech-label">Dizer agora</span>
+          <div class="speech-text" id="currentSpeech">
             Bom dia. Para o aconselhar bem, começo por uma pergunta simples: para quantas pessoas pretende o plano?
           </div>
         </div>
@@ -610,18 +607,18 @@
       <div class="hero-media">
         <div class="hero-main">
           <img
-            src="https://assets.medicare.pt/pontos/cartao-platinium-mais-vida.webp"
-            alt="Cartão Medicare Platinium Mais Vida"
+            src="https://www.medicare.pt/assets/img/platinium-mais-vida.jpg"
+            alt="Cartão Platinium Mais Vida"
             loading="eager"
             referrerpolicy="no-referrer"
           />
-          <span class="hero-tag">Plano em destaque</span>
+          <span class="hero-tag">Platinium Mais Vida</span>
         </div>
 
         <div class="hero-side">
           <div class="hero-small">
             <img
-              src="https://www.medicare.pt/assets/img/video-consulta.gif"
+              src="https://www.medicare.pt/assets/img/video-consulta-hero.gif"
               alt="Vídeo-consulta Medicare"
               loading="eager"
               referrerpolicy="no-referrer"
@@ -648,20 +645,17 @@
         <section class="step current" data-step="1">
           <div class="step-top">
             <div class="step-num">1</div>
-            <div>
-              <h2 class="step-title">Abrir e quantificar</h2>
-              <p class="step-subtitle">Comece pelo dado mais útil para orientar a proposta desde a primeira resposta.</p>
-            </div>
+            <h2 class="step-title">Perguntar nº de pessoas</h2>
           </div>
 
           <div class="step-grid">
             <div class="block read">
-              <span class="block-label">O que dizer</span>
+              <span class="block-label">Dizer</span>
               <div class="read-text">Bom dia. Para o aconselhar bem, começo por uma pergunta simples: para quantas pessoas pretende o plano?</div>
             </div>
 
             <div class="block">
-              <span class="block-label">O que registar</span>
+              <span class="block-label">Registar</span>
               <div class="field">
                 <label for="peopleCount">Número de pessoas</label>
                 <select id="peopleCount">
@@ -673,7 +667,7 @@
                   <option value="5">5 pessoas</option>
                   <option value="6">6 pessoas</option>
                 </select>
-                <small>Assim que sair deste campo, a sugestão começa a aparecer.</small>
+                <small>Ao sair deste campo, a sugestão começa a atualizar-se.</small>
               </div>
             </div>
           </div>
@@ -682,20 +676,17 @@
         <section class="step" data-step="2">
           <div class="step-top">
             <div class="step-num">2</div>
-            <div>
-              <h2 class="step-title">Perceber o que mais pesa</h2>
-              <p class="step-subtitle">Traga a conversa para o motivo principal de decisão.</p>
-            </div>
+            <h2 class="step-title">Perguntar o que mais pesa</h2>
           </div>
 
           <div class="step-grid">
             <div class="block read">
-              <span class="block-label">O que dizer</span>
+              <span class="block-label">Dizer</span>
               <div class="read-text">Perfeito. E hoje o que pesa mais na decisão: poupança, proteção para a família, acesso rápido a cuidados ou maior comodidade?</div>
             </div>
 
             <div class="block">
-              <span class="block-label">O que registar</span>
+              <span class="block-label">Registar</span>
               <div class="field">
                 <label for="priority">Motivação principal</label>
                 <select id="priority">
@@ -713,20 +704,17 @@
         <section class="step" data-step="3">
           <div class="step-top">
             <div class="step-num">3</div>
-            <div>
-              <h2 class="step-title">Perceber a utilização</h2>
-              <p class="step-subtitle">Ajuste a proposta ao uso que o cliente imagina fazer.</p>
-            </div>
+            <h2 class="step-title">Perceber a utilização</h2>
           </div>
 
           <div class="step-grid">
             <div class="block read">
-              <span class="block-label">O que dizer</span>
+              <span class="block-label">Dizer</span>
               <div class="read-text">Pelo uso que imagina, será algo mais ocasional, equilibrado ou mais frequente ao longo do ano?</div>
             </div>
 
             <div class="block">
-              <span class="block-label">O que registar</span>
+              <span class="block-label">Registar</span>
               <div class="field">
                 <label for="usageProfile">Utilização prevista</label>
                 <select id="usageProfile">
@@ -743,20 +731,17 @@
         <section class="step" data-step="4">
           <div class="step-top">
             <div class="step-num">4</div>
-            <div>
-              <h2 class="step-title">Descobrir o serviço que cria valor</h2>
-              <p class="step-subtitle">Isto ajuda a reforçar a proposta certa sem alongar a chamada.</p>
-            </div>
+            <h2 class="step-title">Identificar o serviço que cria valor</h2>
           </div>
 
           <div class="step-grid">
             <div class="block read">
-              <span class="block-label">O que dizer</span>
+              <span class="block-label">Dizer</span>
               <div class="read-text">Há algum serviço que faça mesmo diferença para si? Por exemplo vídeo-consultas, médico ao domicílio, dentária ou proteção adicional?</div>
             </div>
 
             <div class="block">
-              <span class="block-label">O que registar</span>
+              <span class="block-label">Registar</span>
               <div class="field">
                 <label for="serviceFocus">Serviço mais valorizado</label>
                 <select id="serviceFocus">
@@ -776,20 +761,18 @@
         <section class="step" data-step="5">
           <div class="step-top">
             <div class="step-num">5</div>
-            <div>
-              <h2 class="step-title">Preparar a proposta e o fecho</h2>
-              <p class="step-subtitle">Antes de propor, identifique se existe travão comercial.</p>
-            </div>
+            <h2 class="step-title">Preparar fecho e objeção</h2>
           </div>
 
           <div class="step-grid">
             <div class="block read">
-              <span class="block-label">O que dizer</span>
+              <span class="block-label">Dizer</span>
               <div class="read-text">Antes de lhe resumir a proposta, há alguma preocupação que queira esclarecer já: preço, comparação com outra solução, dúvida de utilização ou quer pensar primeiro?</div>
             </div>
 
             <div class="block">
-              <span class="block-label">O que registar</span>
+              <span class="block-label">Registar</span>
+
               <div class="field">
                 <label for="objection">Travão principal</label>
                 <select id="objection">
@@ -804,7 +787,7 @@
 
               <div class="field">
                 <label for="agentNotes">Notas do agente</label>
-                <textarea id="agentNotes" placeholder="Ex.: quer foco em família, compara com outra solução, valoriza comodidade, pede resumo rápido..."></textarea>
+                <textarea id="agentNotes" placeholder="Ex.: compara com outra solução, quer foco em família, valoriza comodidade, pede resumo rápido..."></textarea>
               </div>
             </div>
           </div>
@@ -824,43 +807,39 @@
             <span class="status-badge waiting" id="statusBadge">À espera da 1.ª resposta</span>
           </div>
 
-          <p class="suggest-summary" id="suggestedSummary">
-            Comece por perguntar para quantas pessoas pretende o plano. A partir daí, a proposta passa a orientar-se sozinha.
-          </p>
-
           <div class="suggest-visual">
             <img id="suggestedImage" alt="" referrerpolicy="no-referrer" />
             <div class="suggest-placeholder" id="suggestedPlaceholder">
-              O plano aparece aqui assim que tiver a primeira resposta do cliente.
+              O plano aparece aqui assim que tiver a primeira resposta.
             </div>
           </div>
 
-          <ul class="reason-list" id="reasonList">
-            <li>Ainda não existem critérios suficientes para sugerir um plano.</li>
-          </ul>
+          <div class="chips" id="suggestionChips">
+            <span class="chip">Sem dados</span>
+          </div>
         </section>
 
         <section class="panel side-card">
-          <span class="eyebrow">Como propor agora</span>
+          <span class="eyebrow">Texto para propor</span>
           <div class="speech-box" id="proposalText">
-            Assim que a conversa começar a ganhar contexto, esta área gera a proposta que o agente pode ler quase palavra por palavra.
+            Assim que a conversa tiver contexto suficiente, esta área gera a proposta que o agente pode ler diretamente.
           </div>
         </section>
 
         <section class="panel side-card">
-          <span class="eyebrow">Se o cliente travar</span>
+          <span class="eyebrow">Se houver objeção</span>
           <div class="speech-box" id="objectionText">
-            Quando identificar o travão principal no último bloco, esta resposta fica pronta para o agente usar.
+            Quando registar o travão principal, esta área prepara a resposta curta para o agente usar.
           </div>
         </section>
 
         <section class="panel side-card">
-          <span class="eyebrow">Planos em foco</span>
+          <span class="eyebrow">Planos</span>
 
           <div class="mini-plans">
             <article class="mini-plan" data-plan="Platinium">
               <img
-                src="https://assets.medicare.pt/pontos/cartao-platinium.webp"
+                src="https://assets.medicare.pt/w_130%2Ce_grayscale/Cards/mini/platinium.png"
                 alt="Cartão Platinium"
                 loading="lazy"
                 referrerpolicy="no-referrer"
@@ -873,33 +852,29 @@
 
             <article class="mini-plan" data-plan="Platinium Mais">
               <img
-                src="https://assets.medicare.pt/pontos/cartao-platinium-mais.webp"
+                src="https://assets.medicare.pt/w_130%2Ce_grayscale/cards/mini/platinium-mais.png"
                 alt="Cartão Platinium Mais"
                 loading="lazy"
                 referrerpolicy="no-referrer"
               />
               <div>
                 <h3>Platinium Mais</h3>
-                <p>Opção intermédia para equilíbrio entre simplicidade e valor percebido.</p>
+                <p>Escalão intermédio para equilíbrio entre simplicidade e valor percebido.</p>
               </div>
             </article>
 
             <article class="mini-plan" data-plan="Platinium Mais Vida">
               <img
-                src="https://assets.medicare.pt/pontos/cartao-platinium-mais-vida.webp"
+                src="https://assets.medicare.pt/w_130/Cards/mini/platinium-mais-vida.png"
                 alt="Cartão Platinium Mais Vida"
                 loading="lazy"
                 referrerpolicy="no-referrer"
               />
               <div>
                 <h3>Platinium Mais Vida</h3>
-                <p>Proposta mais forte quando o cliente valoriza conveniência, família e maior proteção.</p>
+                <p>Proposta mais forte quando a conversa puxa para conveniência, família e serviços.</p>
               </div>
             </article>
-          </div>
-
-          <div class="note">
-            Use as cartas acima como apoio visual rápido para enquadrar a proposta sem sair da chamada.
           </div>
         </section>
       </aside>
@@ -918,10 +893,9 @@
 
     const currentSpeech = document.getElementById("currentSpeech");
     const suggestedPlan = document.getElementById("suggestedPlan");
-    const suggestedSummary = document.getElementById("suggestedSummary");
     const suggestedImage = document.getElementById("suggestedImage");
     const suggestedPlaceholder = document.getElementById("suggestedPlaceholder");
-    const reasonList = document.getElementById("reasonList");
+    const suggestionChips = document.getElementById("suggestionChips");
     const proposalText = document.getElementById("proposalText");
     const objectionText = document.getElementById("objectionText");
     const statusBadge = document.getElementById("statusBadge");
@@ -930,40 +904,37 @@
 
     const planData = {
       "Platinium": {
-        image: "https://assets.medicare.pt/pontos/cartao-platinium.webp",
-        summary: "Leitura mais prudente para um cenário simples, mais sensível a preço e com utilização leve.",
-        shortReason: "Entrada mais simples"
+        image: "https://assets.medicare.pt/w_130%2Ce_grayscale/Cards/mini/platinium.png",
+        badge: "Entrada"
       },
       "Platinium Mais": {
-        image: "https://assets.medicare.pt/pontos/cartao-platinium-mais.webp",
-        summary: "Equilíbrio entre simplicidade e valor percebido, útil quando o cliente quer algo acima do básico sem ir logo ao topo.",
-        shortReason: "Equilíbrio intermédio"
+        image: "https://assets.medicare.pt/w_130%2Ce_grayscale/cards/mini/platinium-mais.png",
+        badge: "Intermédio"
       },
       "Platinium Mais Vida": {
-        image: "https://assets.medicare.pt/pontos/cartao-platinium-mais-vida.webp",
-        summary: "Proposta mais forte quando a conversa puxa para família, comodidade, serviços à distância e maior sensação de proteção.",
-        shortReason: "Mais completo"
+        image: "https://www.medicare.pt/assets/img/platinium-mais-vida.jpg",
+        badge: "Mais completo"
       }
     };
 
     const priorityLabel = {
       price: "preço",
-      family: "proteção familiar",
+      family: "família",
       access: "acesso rápido",
       convenience: "comodidade"
     };
 
     const usageLabel = {
-      light: "utilização mais ocasional",
-      balanced: "utilização equilibrada",
-      intense: "utilização mais frequente"
+      light: "uso ocasional",
+      balanced: "uso equilibrado",
+      intense: "uso frequente"
     };
 
     const serviceLabel = {
-      none: "nenhum serviço em especial",
+      none: "sem serviço-chave",
       video: "vídeo-consultas",
       home: "médico ao domicílio",
-      dental: "medicina dentária",
+      dental: "dentária",
       mental: "saúde mental",
       protection: "proteção adicional"
     };
@@ -991,7 +962,7 @@
     function updateStepState(state) {
       const pending = getFirstPendingStep(state);
 
-      steps.forEach((step) => {
+      steps.forEach(step => {
         const stepNumber = Number(step.dataset.step);
         step.classList.remove("current", "done");
 
@@ -1025,7 +996,7 @@
         score["Platinium"] += 6;
         score["Platinium Mais"] += 2;
       } else if (state.people === 2) {
-        score["Platinium"] += 2;
+        score["Platinium"] += 1;
         score["Platinium Mais"] += 6;
         score["Platinium Mais Vida"] += 3;
       } else if (state.people === 3) {
@@ -1071,45 +1042,27 @@
         score["Platinium Mais"] += 1;
       }
 
-      if (state.service === "video") {
-        score["Platinium Mais Vida"] += 4;
-      }
-
-      if (state.service === "home") {
-        score["Platinium Mais Vida"] += 4;
-      }
-
-      if (state.service === "mental") {
-        score["Platinium Mais Vida"] += 3;
-      }
-
+      if (state.service === "video") score["Platinium Mais Vida"] += 4;
+      if (state.service === "home") score["Platinium Mais Vida"] += 4;
+      if (state.service === "mental") score["Platinium Mais Vida"] += 3;
       if (state.service === "dental") {
         score["Platinium Mais"] += 2;
-        score["Platinium Mais Vida"] += 1;
         score["Platinium"] += 1;
+        score["Platinium Mais Vida"] += 1;
       }
-
-      if (state.service === "protection") {
-        score["Platinium Mais Vida"] += 3;
-      }
+      if (state.service === "protection") score["Platinium Mais Vida"] += 3;
 
       if (state.objection === "price") {
         score["Platinium"] += 2;
         score["Platinium Mais"] += 1;
       }
 
-      if (state.objection === "compare") {
-        score["Platinium Mais"] += 1;
-      }
-
+      if (state.objection === "compare") score["Platinium Mais"] += 1;
       if (state.objection === "usage") {
         score["Platinium"] += 1;
         score["Platinium Mais"] += 1;
       }
-
-      if (state.objection === "think") {
-        score["Platinium Mais"] += 1;
-      }
+      if (state.objection === "think") score["Platinium Mais"] += 1;
 
       return score;
     }
@@ -1119,16 +1072,10 @@
 
       const scores = getScores(state);
       const maxScore = Math.max(...Object.values(scores));
-      const ties = Object.keys(scores).filter((key) => scores[key] === maxScore);
+      const ties = Object.keys(scores).filter(key => scores[key] === maxScore);
       const tiePreference = getTiePreference(state);
 
       let winner = ties[0];
-      tiePreference.forEach((candidate) => {
-        if (ties.includes(candidate) && !winner) {
-          winner = candidate;
-        }
-      });
-
       if (ties.length > 1) {
         for (const candidate of tiePreference) {
           if (ties.includes(candidate)) {
@@ -1138,10 +1085,71 @@
         }
       }
 
-      return {
-        name: winner,
-        scores
-      };
+      return { name: winner, scores };
+    }
+
+    function getSuggestionChips(state, suggestion) {
+      if (!suggestion) return ["Sem dados"];
+
+      const chips = [];
+      chips.push(state.people === 1 ? "1 pessoa" : `${state.people} pessoas`);
+
+      if (state.priority) chips.push(priorityLabel[state.priority]);
+      if (state.usage) chips.push(usageLabel[state.usage]);
+      if (state.service) chips.push(serviceLabel[state.service]);
+
+      return chips.slice(0, 4);
+    }
+
+    function buildProposal(state, suggestion) {
+      if (!state.people || !suggestion) {
+        return "Assim que a conversa tiver contexto suficiente, esta área gera a proposta que o agente pode ler diretamente.";
+      }
+
+      const peopleText = state.people === 1 ? "1 pessoa" : `${state.people} pessoas`;
+      const serviceText = state.service && state.service !== "none" ? serviceLabel[state.service] : "";
+      const priorityText = state.priority ? priorityLabel[state.priority] : "";
+      const usageText = state.usage ? usageLabel[state.usage] : "";
+
+      if (suggestion.name === "Platinium") {
+        return `Pelo que me indicou, eu começaria pelo Platinium. Para ${peopleText}, com foco em ${priorityText || "uma solução simples"}${usageText ? ` e ${usageText}` : ""}, é a forma mais direta de começar com critério. Se quiser, comparo rapidamente com o escalão acima para perceber se ganha algo que faça realmente diferença no seu caso.`;
+      }
+
+      if (suggestion.name === "Platinium Mais") {
+        return `Pelo que me indicou, o Platinium Mais é o que melhor encaixa neste momento. Para ${peopleText}, com foco em ${priorityText || "equilíbrio"}${usageText ? ` e ${usageText}` : ""}, dá-lhe uma proposta mais completa sem complicar a decisão. Se quiser, explico-lhe em poucos segundos a diferença para o escalão abaixo e para o acima.`;
+      }
+
+      return `Pelo que me indicou, a proposta que lhe faz mais sentido neste momento é o Platinium Mais Vida. Para ${peopleText}, com foco em ${priorityText || "conveniência"}${usageText ? `, ${usageText}` : ""}${serviceText ? ` e valorizando ${serviceText}` : ""}, é a opção que melhor acompanha o uso que prevê fazer. Se quiser, resumo-lhe agora a diferença para as restantes para que decida com clareza.`;
+    }
+
+    function buildObjection(state, suggestion) {
+      if (!state.objection) {
+        return "Quando registar o travão principal, esta área prepara a resposta curta para o agente usar.";
+      }
+
+      const planName = suggestion ? suggestion.name : "a opção proposta";
+
+      if (state.objection === "none") {
+        return "Sem objeção relevante. Pode avançar diretamente para a proposta e pedir validação ao cliente.";
+      }
+
+      if (state.objection === "price") {
+        return `Percebo. Então o mais importante aqui é não sobrecarregar a escolha. Posso focar-me no que faz sentido para o seu contexto de hoje e, se quiser, comparo em poucos segundos com a alternativa seguinte. Neste momento, ${planName} é a referência mais alinhada para essa conversa.`;
+      }
+
+      if (state.objection === "compare") {
+        return `Faz sentido comparar. O meu objetivo não é mudar por mudar, mas perceber se a solução atual lhe entrega o mesmo encaixe para o uso que prevê fazer. Neste momento, ${planName} é a opção que melhor bate certo com o que acabou de me indicar.`;
+      }
+
+      if (state.objection === "usage") {
+        return `É precisamente por isso que vale a pena alinhar a proposta ao uso previsto. Não faz sentido ficar acima do que precisa, mas também não ficar curto quando surgir a necessidade. Neste momento, ${planName} é o ponto mais equilibrado para essa decisão.`;
+      }
+
+      if (state.objection === "think") {
+        return `Claro. Antes de pensar, deixo-lhe um resumo muito objetivo: com base no número de pessoas, na prioridade e no tipo de utilização, ${planName} é a opção que melhor encaixa neste momento. Assim decide com uma referência clara e não apenas com uma lista de alternativas.`;
+      }
+
+      return "Sem objeção ativa.";
     }
 
     function buildCurrentSpeech(state, suggestion) {
@@ -1167,145 +1175,50 @@
         return "Antes de lhe resumir a proposta, há alguma preocupação que queira esclarecer já: preço, comparação com outra solução, dúvida de utilização ou quer pensar primeiro?";
       }
 
-      if (suggestion) {
-        return "Pelo que me indicou, a opção que melhor encaixa neste momento é o " + suggestion.name + ". Faz sentido eu resumir-lhe em menos de 30 segundos porquê?";
+      if (state.objection && state.objection !== "none") {
+        return buildObjection(state, suggestion);
       }
 
-      return "Vamos começar pela primeira pergunta.";
-    }
-
-    function buildReasons(state, planName) {
-      if (!state.people) {
-        return ["Ainda não existem critérios suficientes para sugerir um plano."];
-      }
-
-      const reasons = [];
-
-      if (planName === "Platinium") {
-        if (state.people === 1) reasons.push("É para 1 pessoa, o que favorece uma proposta mais simples.");
-        if (state.priority === "price") reasons.push("O critério dominante é contenção de custo.");
-        if (state.usage === "light") reasons.push("A utilização prevista é mais ocasional.");
-        if (state.service === "none") reasons.push("Não surgiu necessidade forte de um serviço específico.");
-      }
-
-      if (planName === "Platinium Mais") {
-        if (state.people === 2 || state.people === 3) reasons.push("O número de pessoas encaixa bem numa opção intermédia.");
-        if (state.priority === "access") reasons.push("O cliente valoriza acesso rápido sem pedir a proposta mais completa.");
-        if (state.usage === "balanced") reasons.push("A utilização prevista é equilibrada.");
-        if (state.service === "dental") reasons.push("A medicina dentária reforça bem uma proposta intermédia.");
-      }
-
-      if (planName === "Platinium Mais Vida") {
-        if (state.people >= 4) reasons.push("O número de pessoas puxa a conversa para uma proposta mais completa.");
-        if (state.priority === "family") reasons.push("A motivação principal é proteção familiar.");
-        if (state.priority === "convenience") reasons.push("O cliente valoriza comodidade e serviços à distância.");
-        if (state.usage === "intense") reasons.push("A utilização prevista é mais frequente.");
-        if (state.service === "video") reasons.push("As vídeo-consultas são um fator claro de interesse.");
-        if (state.service === "home") reasons.push("O médico ao domicílio pesa na decisão.");
-        if (state.service === "mental") reasons.push("A saúde mental acrescenta valor percebido.");
-        if (state.service === "protection") reasons.push("Existe valorização de proteção adicional.");
-      }
-
-      if (!reasons.length) {
-        reasons.push("Com a informação atual, esta é a proposta que melhor equilibra contexto e valor percebido.");
-      }
-
-      return reasons.slice(0, 4);
-    }
-
-    function buildProposal(state, suggestion) {
-      if (!state.people || !suggestion) {
-        return "Assim que a conversa começar a ganhar contexto, esta área gera a proposta que o agente pode ler quase palavra por palavra.";
-      }
-
-      const peopleText = state.people === 1 ? "1 pessoa" : state.people + " pessoas";
-      const proposal = [];
-
-      proposal.push("Pelo que me indicou, e sendo para " + peopleText + ", faz sentido eu posicionar o " + suggestion.name + ".");
-
-      if (state.priority) {
-        proposal.push("Aqui o que mais pesa é " + priorityLabel[state.priority] + ".");
-      }
-
-      if (state.usage) {
-        proposal.push("Além disso, estamos a falar de " + usageLabel[state.usage] + ".");
-      }
-
-      if (state.service) {
-        proposal.push("Do lado do valor percebido, destaca-se " + serviceLabel[state.service] + ".");
-      }
-
-      proposal.push("A minha proposta seria esta: em vez de lhe mostrar várias alternativas sem direção, foco-me na opção que melhor encaixa no seu contexto e comparo apenas se fizer sentido.");
-
-      return proposal.join(" ");
-    }
-
-    function buildObjectionReply(state, suggestion) {
-      if (!state.objection) {
-        return "Quando identificar o travão principal no último bloco, esta resposta fica pronta para o agente usar.";
-      }
-
-      const planName = suggestion ? suggestion.name : "a opção sugerida";
-
-      if (state.objection === "none") {
-        return "Sem objeção relevante identificada. Pode avançar para a proposta com segurança e pedir validação direta ao cliente.";
-      }
-
-      if (state.objection === "price") {
-        return "Percebo. Então o importante aqui é não sobrecarregar a escolha. Posso focar-me na opção que melhor encaixa no seu contexto de hoje e, se quiser, comparo em poucos segundos com um nível acima apenas para perceber o que ganha e o que prescinde. Neste momento, " + planName + " é a referência mais alinhada para essa conversa.";
-      }
-
-      if (state.objection === "compare") {
-        return "Faz sentido comparar. O meu objetivo não é mudar por mudar, mas perceber se a solução atual lhe entrega o mesmo encaixe para o uso que prevê fazer. Neste momento, " + planName + " é a opção que melhor bate certo com o que acabou de me dizer.";
-      }
-
-      if (state.objection === "usage") {
-        return "É precisamente por isso que vale a pena alinhar a proposta ao uso previsto. Não faz sentido ficar acima do que precisa, mas também não ficar curto quando surgir a necessidade. Neste momento, " + planName + " é o ponto mais equilibrado para essa decisão.";
-      }
-
-      if (state.objection === "think") {
-        return "Claro. Antes de pensar, deixo-lhe um resumo objetivo: com base no número de pessoas, na prioridade e no tipo de utilização, " + planName + " é a opção que melhor encaixa neste momento. Assim decide com uma recomendação clara e não apenas com uma lista de alternativas.";
-      }
-
-      return "Sem objeção ativa.";
+      return buildProposal(state, suggestion);
     }
 
     function updateSuggestionCard(state, suggestion) {
       if (!suggestion) {
         suggestedPlan.textContent = "Sem sugestão";
-        suggestedSummary.textContent = "Comece por perguntar para quantas pessoas pretende o plano. A partir daí, a proposta passa a orientar-se sozinha.";
         statusBadge.textContent = "À espera da 1.ª resposta";
         statusBadge.classList.remove("ready");
         statusBadge.classList.add("waiting");
-        reasonList.innerHTML = "<li>Ainda não existem critérios suficientes para sugerir um plano.</li>";
+
         suggestedImage.style.display = "none";
         suggestedImage.removeAttribute("src");
         suggestedImage.removeAttribute("alt");
         suggestedPlaceholder.style.display = "block";
+
+        suggestionChips.innerHTML = '<span class="chip">Sem dados</span>';
         highlightMiniPlan("");
         return;
       }
 
       const plan = suggestion.name;
-      const reasons = buildReasons(state, plan);
 
       suggestedPlan.textContent = plan;
-      suggestedSummary.textContent = planData[plan].summary;
-      statusBadge.textContent = planData[plan].shortReason;
+      statusBadge.textContent = planData[plan].badge;
       statusBadge.classList.remove("waiting");
       statusBadge.classList.add("ready");
-      reasonList.innerHTML = reasons.map((item) => "<li>" + item + "</li>").join("");
 
       suggestedImage.src = planData[plan].image;
       suggestedImage.alt = plan;
       suggestedImage.style.display = "block";
       suggestedPlaceholder.style.display = "none";
 
+      const chips = getSuggestionChips(state, suggestion);
+      suggestionChips.innerHTML = chips.map(chip => `<span class="chip">${chip}</span>`).join("");
+
       highlightMiniPlan(plan);
     }
 
     function highlightMiniPlan(planName) {
-      miniPlans.forEach((card) => {
+      miniPlans.forEach(card => {
         card.classList.toggle("active", card.dataset.plan === planName);
       });
     }
@@ -1318,7 +1231,7 @@
       currentSpeech.textContent = buildCurrentSpeech(state, suggestion);
       updateSuggestionCard(state, suggestion);
       proposalText.textContent = buildProposal(state, suggestion);
-      objectionText.textContent = buildObjectionReply(state, suggestion);
+      objectionText.textContent = buildObjection(state, suggestion);
     }
 
     function resetForm() {
